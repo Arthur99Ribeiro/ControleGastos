@@ -118,101 +118,109 @@ namespace ControleGastos
                 MessageBox.Show("Nenhum cadastro selecionado para exclusão.");
                 return;
             }
-
-            DialogResult resultado = MessageBox.Show("Deseja realmente excluir este cadastro?", "Confirmação",
-                                                   MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (resultado == DialogResult.Yes)
+            else
             {
-                try
-                {
-                    CadastroDAO dao = new CadastroDAO();
-                    dao.ExcluirCadastro(idPessoaAtual.Value);
+                DialogResult resultado = MessageBox.Show("Deseja realmente excluir este cadastro?", "Confirmação",
+                                       MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                    MessageBox.Show("Cadastro excluído com sucesso!");
-                    ucDadosPessoais.LimparCamposDadosPessoais();
-                    ucEndereco.LimparCamposEndereco();
-                    idPessoaAtual = 0;
-                    tstIdPessoa.Text = idPessoaAtual.ToString();
-                }
-                catch (Exception ex)
+                if (resultado == DialogResult.Yes)
                 {
-                    MessageBox.Show("Erro ao excluir cadastro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    try
+                    {
+                        CadastroDAO dao = new CadastroDAO();
+                        dao.CadPessoaExcluirCadastro(idPessoaAtual.Value);
+
+                        MessageBox.Show("Cadastro excluído com sucesso!");
+                        ucDadosPessoais.LimparCamposDadosPessoais();
+                        ucEndereco.LimparCamposEndereco();
+                        idPessoaAtual = 0;
+                        tstIdPessoa.Text = idPessoaAtual.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Erro ao excluir cadastro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
 
         private void tslCadPessoasIncluir_Click(object sender, EventArgs e)
         {
-            if(!ucDadosPessoais.ValidaDadosPessoaisPreenchidos() && !ucEndereco.ValidaEnderecoPreenchido())
+            if(idPessoaAtual > 0)
             {
-                DialogResult resultado = MessageBox.Show("Deseja incluir os dados preenchidos em Dados Pessoais e Endereço?", "Incluir Dados",
-                                                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (resultado == DialogResult.Yes)
-                {
-                    if (idPessoaAtual == 0)
-                    {
-                        var pessoa = ucDadosPessoais.ObterDadosPessoais();
-                        var endereco = ucEndereco.ObterEndereco();
-
-                        CadastroDAO dao = new CadastroDAO();
-                        dao.InserirCadastro(pessoa, endereco);
-
-                        DialogResult result = MessageBox.Show("Cadastro incluído com sucesso! \n" +
-                                        "Deja carregar cadastro?", "Sucesso",
-                                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                        if (result == DialogResult.Yes)
-                        {
-                            //idPessoaAtual = pessoa.Id; // Atualiza o ID do cadastro atual
-                            string cpf = ucDadosPessoais.ObterDadosPessoaisCPF();
-
-                            CadastroDAO atu = new CadastroDAO();
-                            var (atuPessoa, atuEndereco) = atu.BuscarPorCPF(cpf);
-                            ucDadosPessoais.PreencherDadosPessoias(atuPessoa);
-                            ucEndereco.PreencherEndereco(atuEndereco);
-                            idPessoaAtual = atuPessoa.Id;
-                            tstIdPessoa.Text = idPessoaAtual.ToString();
-
-                            MessageBox.Show("Cadastro carregado com sucesso!", "Sucesso",
-                                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            ucDadosPessoais.LimparCamposDadosPessoais();
-                            ucEndereco.LimparCamposEndereco();
-                            idPessoaAtual = 0; // Reseta o ID do cadastro atual
-                            tstIdPessoa.Text = idPessoaAtual.ToString();
-                        }
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Ja existe um cadastro selecionado /n Faça uma alteração!!", "Aviso",
-                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        return;
-                    }
-
-                }
-            }
-            else
-            {
-                MessageBox.Show("Por favor, preencha os campos de Dados Pessoais e Endereço antes de incluir.", "Aviso",
+                MessageBox.Show("Já existe um cadastro selecionado. \n " +
+                                "Caso deseja relaizar uma alteração, use o botão salvar. \n" +
+                                "Caso deseje realizar uma nova inclusão, limpe os campos antes de incluir um novo cadastro.", "Aviso",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            else
+            {
+                if (!ucDadosPessoais.ValidaDadosPessoaisPreenchidos() && !ucEndereco.ValidaEnderecoPreenchido())
+                {
+                    DialogResult resultado = MessageBox.Show("Deseja incluir os dados preenchidos em Dados Pessoais e Endereço?", "Incluir Dados",
+                                                                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (resultado == DialogResult.Yes)
+                    {
+                        if (idPessoaAtual == 0)
+                        {
+                            var pessoa = ucDadosPessoais.ObterDadosPessoais();
+                            var endereco = ucEndereco.ObterEndereco();
 
+                            CadastroDAO dao = new CadastroDAO();
+                            dao.CadPessoaInserirCadastro(pessoa, endereco);
 
+                            DialogResult result = MessageBox.Show("Cadastro incluído com sucesso! \n" +
+                                                                    "Deja carregar cadastro?", "Sucesso",
+                                                                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                            if (result == DialogResult.Yes)
+                            {
+                                string cpf = ucDadosPessoais.ObterDadosPessoaisCPF();
+
+                                CadastroDAO atu = new CadastroDAO();
+                                var (atuPessoa, atuEndereco) = atu.CadPessoaBuscarPorCPF(cpf);
+                                ucDadosPessoais.PreencherDadosPessoias(atuPessoa);
+                                ucEndereco.PreencherEndereco(atuEndereco);
+                                idPessoaAtual = atuPessoa.Id;
+                                tstIdPessoa.Text = idPessoaAtual.ToString();
+
+                                MessageBox.Show("Cadastro carregado com sucesso!", "Sucesso",
+                                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                ucDadosPessoais.LimparCamposDadosPessoais();
+                                ucEndereco.LimparCamposEndereco();
+                                idPessoaAtual = 0; // Reseta o ID do cadastro atual
+                                tstIdPessoa.Text = idPessoaAtual.ToString();
+                            }
+
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, preencha os campos de Dados Pessoais e Endereço antes de incluir.", "Aviso",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
         }
 
         private void tslCadPessoasSalvar_Click(object sender, EventArgs e)
         {
-
-            DialogResult resultado = MessageBox.Show("Deseja salvar os dados altrerados em Dados Pessoais e Endereço?", "Alterar Dados",
-                                                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (resultado == DialogResult.Yes)
+            if (idPessoaAtual == 0)
             {
-                if (idPessoaAtual > 0)
+                MessageBox.Show("Cadastro não existente! /n Faça a inclusão!!", "Aviso",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            else
+            {
+                DialogResult resultado = MessageBox.Show("Deseja salvar os dados altrerados em Dados Pessoais e Endereço?", "Alterar Dados",
+                                                            MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (resultado == DialogResult.Yes)
                 {
                     var pessoa = ucDadosPessoais.ObterDadosPessoais();
                     var endereco = ucEndereco.ObterEndereco();
@@ -222,27 +230,21 @@ namespace ControleGastos
                     pessoa.Id = idPessoaAtual.Value;
                     endereco.IdPessoa = idPessoaAtual.Value;
 
-                    dao.SalvarCadastro(pessoa, endereco);
-                    MessageBox.Show("Dados atualizados com sucesso!", "Sucesso", 
+                    dao.CadPessoaSalvarCadastro(pessoa, endereco);
+                    MessageBox.Show("Dados salvo com sucesso!", "Sucesso",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     string cpf = ucDadosPessoais.ObterDadosPessoaisCPF();
 
                     CadastroDAO atu = new CadastroDAO();
-                    var (atuPessoa, atuEndereco) = atu.BuscarPorCPF(cpf);
+                    var (atuPessoa, atuEndereco) = atu.CadPessoaBuscarPorCPF(cpf);
                     ucDadosPessoais.PreencherDadosPessoias(atuPessoa);
                     ucEndereco.PreencherEndereco(atuEndereco);
                     idPessoaAtual = atuPessoa.Id;
                     tstIdPessoa.Text = idPessoaAtual.ToString();
 
                 }
-                else
-                {
-                    MessageBox.Show("Cadastro não existente! /n Faça a inclusão!!", "Aviso", 
-                                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return;
-                }
-            }
+            }   
         }
 
         private void tslCadPessoasPesquisar_Click(object sender, EventArgs e)
@@ -260,7 +262,7 @@ namespace ControleGastos
             if (!string.IsNullOrWhiteSpace(cpf))
             {
                 CadastroDAO daoCpf = new CadastroDAO();
-                var (pessoa, endereco) = daoCpf.BuscarPorCPF(cpf);
+                var (pessoa, endereco) = daoCpf.CadPessoaBuscarPorCPF(cpf);
 
                 if (pessoa != null)
                 {
@@ -268,6 +270,9 @@ namespace ControleGastos
                     ucEndereco.PreencherEndereco(endereco);
                     idPessoaAtual = pessoa.Id;
                     tstIdPessoa.Text = idPessoaAtual.ToString();
+
+                    MessageBox.Show("Cadastro encontrado com sucesso!", "Sucesso", 
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -283,17 +288,20 @@ namespace ControleGastos
                 if (!string.IsNullOrWhiteSpace(nome))
                 {
                     CadastroDAO daoNome = new CadastroDAO();
-                    var (pessoa, endereco) = daoNome.BuscarPorNome(nome);
+                    var (pessoa, endereco) = daoNome.CadPessoaBuscarPorNome(nome);
                     if (pessoa != null)
                     {
                         ucDadosPessoais.PreencherDadosPessoias(pessoa);
                         ucEndereco.PreencherEndereco(endereco);
                         idPessoaAtual = pessoa.Id;
                         tstIdPessoa.Text = idPessoaAtual.ToString();
+
+                        MessageBox.Show("Cadastro encontrado com sucesso!", "Sucesso", 
+                                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        MessageBox.Show("Pessoa não encontrada.");
+                        MessageBox.Show("Pessoa não encontrada.\n Confira se o Nome esta preenchido corretamente.");
                         ucDadosPessoais.LimparCamposDadosPessoais();
                         ucEndereco.LimparCamposEndereco();
                         idPessoaAtual = 0;
@@ -313,14 +321,10 @@ namespace ControleGastos
                 ucEndereco.LimparCamposEndereco();
                 idPessoaAtual = 0; // Reseta o ID do cadastro atual
                 tstIdPessoa.Text = idPessoaAtual.ToString();
+
+                MessageBox.Show("Campos limpos com sucesso!", "Sucesso", 
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else
-            {
-                return;
-            }
-            
-               
-            
         }
     }
 }

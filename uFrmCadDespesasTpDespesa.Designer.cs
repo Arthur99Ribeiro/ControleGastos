@@ -73,6 +73,7 @@
             tslTpDespesaExcluir.Name = "tslTpDespesaExcluir";
             tslTpDespesaExcluir.Size = new Size(29, 27);
             tslTpDespesaExcluir.Text = "";
+            tslTpDespesaExcluir.Click += tslTpDespesaExcluir_Click;
             tslTpDespesaExcluir.MouseEnter += tslTpDespesaExcluir_MouseEnter;
             tslTpDespesaExcluir.MouseLeave += tslTpDespesaExcluir_MouseLeave;
             // 
@@ -88,6 +89,7 @@
             tslTpDespesaIncluir.Name = "tslTpDespesaIncluir";
             tslTpDespesaIncluir.Size = new Size(29, 27);
             tslTpDespesaIncluir.Text = "";
+            tslTpDespesaIncluir.Click += tslTpDespesaIncluir_Click;
             tslTpDespesaIncluir.MouseEnter += tslTpDespesaIncluir_MouseEnter;
             tslTpDespesaIncluir.MouseLeave += tslTpDespesaIncluir_MouseLeave;
             // 
@@ -103,6 +105,7 @@
             tslTpDespesaSalvar.Name = "tslTpDespesaSalvar";
             tslTpDespesaSalvar.Size = new Size(29, 27);
             tslTpDespesaSalvar.Text = "";
+            tslTpDespesaSalvar.Click += tslTpDespesaSalvar_Click;
             tslTpDespesaSalvar.MouseEnter += tslTpDespesaSalvar_MouseEnter;
             tslTpDespesaSalvar.MouseLeave += tslTpDespesaSalvar_MouseLeave;
             // 
@@ -117,6 +120,7 @@
             tslTpDespesaPesquisar.Name = "tslTpDespesaPesquisar";
             tslTpDespesaPesquisar.Size = new Size(29, 27);
             tslTpDespesaPesquisar.Text = "";
+            tslTpDespesaPesquisar.Click += tslTpDespesaPesquisar_Click;
             tslTpDespesaPesquisar.MouseEnter += tslTpDespesaPesquisar_MouseEnter;
             tslTpDespesaPesquisar.MouseLeave += tslTpDespesaPesquisar_MouseLeave;
             // 
@@ -131,6 +135,7 @@
             tslTpDespesaLimpar.Name = "tslTpDespesaLimpar";
             tslTpDespesaLimpar.Size = new Size(29, 27);
             tslTpDespesaLimpar.Text = "";
+            tslTpDespesaLimpar.Click += tslTpDespesaLimpar_Click;
             tslTpDespesaLimpar.MouseEnter += tslTpDespesaLimpar_MouseEnter;
             tslTpDespesaLimpar.MouseLeave += tslTpDespesaLimpar_MouseLeave;
             // 

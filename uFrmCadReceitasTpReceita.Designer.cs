@@ -41,7 +41,7 @@
             tslTpReceitaLimpar = new ToolStripLabel();
             toolStripSeparator6 = new ToolStripSeparator();
             tslTpReceitaTpReceita = new ToolStripLabel();
-            tstTpReceitaIdTpDespesa = new ToolStripTextBox();
+            tstTpReceitaIdTpReceita = new ToolStripTextBox();
             gbCadTpRceita = new GroupBox();
             cbCadTpReceitaFixa = new CheckBox();
             txCadTpReceitaNome = new TextBox();
@@ -54,7 +54,7 @@
             // 
             tsCadTpReceita.AutoSize = false;
             tsCadTpReceita.GripStyle = ToolStripGripStyle.Hidden;
-            tsCadTpReceita.Items.AddRange(new ToolStripItem[] { toolStripSeparator1, tslTpReceitaExcluir, toolStripSeparator2, tslTpReceitaIncluir, toolStripSeparator3, tslTpReceitaSalvar, toolStripSeparator4, tslTpReceitaPesquisar, toolStripSeparator5, tslTpReceitaLimpar, toolStripSeparator6, tslTpReceitaTpReceita, tstTpReceitaIdTpDespesa });
+            tsCadTpReceita.Items.AddRange(new ToolStripItem[] { toolStripSeparator1, tslTpReceitaExcluir, toolStripSeparator2, tslTpReceitaIncluir, toolStripSeparator3, tslTpReceitaSalvar, toolStripSeparator4, tslTpReceitaPesquisar, toolStripSeparator5, tslTpReceitaLimpar, toolStripSeparator6, tslTpReceitaTpReceita, tstTpReceitaIdTpReceita });
             tsCadTpReceita.Location = new Point(0, 0);
             tsCadTpReceita.Name = "tsCadTpReceita";
             tsCadTpReceita.Size = new Size(390, 30);
@@ -73,6 +73,7 @@
             tslTpReceitaExcluir.Name = "tslTpReceitaExcluir";
             tslTpReceitaExcluir.Size = new Size(29, 27);
             tslTpReceitaExcluir.Text = "";
+            tslTpReceitaExcluir.Click += tslTpReceitaExcluir_Click;
             tslTpReceitaExcluir.MouseEnter += tslTpReceitaExcluir_MouseEnter;
             tslTpReceitaExcluir.MouseLeave += tslTpReceitaExcluir_MouseLeave;
             // 
@@ -88,6 +89,7 @@
             tslTpReceitaIncluir.Name = "tslTpReceitaIncluir";
             tslTpReceitaIncluir.Size = new Size(29, 27);
             tslTpReceitaIncluir.Text = "";
+            tslTpReceitaIncluir.Click += tslTpReceitaIncluir_Click;
             tslTpReceitaIncluir.MouseEnter += tslTpReceitaIncluir_MouseEnter;
             tslTpReceitaIncluir.MouseLeave += tslTpReceitaIncluir_MouseLeave;
             // 
@@ -103,6 +105,7 @@
             tslTpReceitaSalvar.Name = "tslTpReceitaSalvar";
             tslTpReceitaSalvar.Size = new Size(29, 27);
             tslTpReceitaSalvar.Text = "";
+            tslTpReceitaSalvar.Click += tslTpReceitaSalvar_Click;
             tslTpReceitaSalvar.MouseEnter += tslTpReceitaSalvar_MouseEnter;
             tslTpReceitaSalvar.MouseLeave += tslTpReceitaSalvar_MouseLeave;
             // 
@@ -117,6 +120,7 @@
             tslTpReceitaPesquisar.Name = "tslTpReceitaPesquisar";
             tslTpReceitaPesquisar.Size = new Size(29, 27);
             tslTpReceitaPesquisar.Text = "";
+            tslTpReceitaPesquisar.Click += tslTpReceitaPesquisar_Click;
             tslTpReceitaPesquisar.MouseEnter += tslTpReceitaPesquisar_MouseEnter;
             tslTpReceitaPesquisar.MouseLeave += tslTpReceitaPesquisar_MouseLeave;
             // 
@@ -131,6 +135,7 @@
             tslTpReceitaLimpar.Name = "tslTpReceitaLimpar";
             tslTpReceitaLimpar.Size = new Size(29, 27);
             tslTpReceitaLimpar.Text = "";
+            tslTpReceitaLimpar.Click += tslTpReceitaLimpar_Click;
             tslTpReceitaLimpar.MouseEnter += tslTpReceitaLimpar_MouseEnter;
             tslTpReceitaLimpar.MouseLeave += tslTpReceitaLimpar_MouseLeave;
             // 
@@ -145,11 +150,11 @@
             tslTpReceitaTpReceita.Size = new Size(87, 27);
             tslTpReceitaTpReceita.Text = "Id Tipo Receita:";
             // 
-            // tstTpReceitaIdTpDespesa
+            // tstTpReceitaIdTpReceita
             // 
-            tstTpReceitaIdTpDespesa.Enabled = false;
-            tstTpReceitaIdTpDespesa.Name = "tstTpReceitaIdTpDespesa";
-            tstTpReceitaIdTpDespesa.Size = new Size(100, 30);
+            tstTpReceitaIdTpReceita.Enabled = false;
+            tstTpReceitaIdTpReceita.Name = "tstTpReceitaIdTpReceita";
+            tstTpReceitaIdTpReceita.Size = new Size(100, 30);
             // 
             // gbCadTpRceita
             // 
@@ -226,7 +231,7 @@
         private ToolStripLabel tslTpReceitaLimpar;
         private ToolStripSeparator toolStripSeparator6;
         private ToolStripLabel tslTpReceitaTpReceita;
-        private ToolStripTextBox tstTpReceitaIdTpDespesa;
+        private ToolStripTextBox tstTpReceitaIdTpReceita;
         private GroupBox gbCadTpRceita;
         private TextBox txCadTpReceitaNome;
         private Label lbCadTpReceitaNome;

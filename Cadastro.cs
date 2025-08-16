@@ -54,6 +54,34 @@ namespace ControleGastos
             }
         }
 
-     
+        public class TpDespesa
+        {
+            public int IdTpDespesa { get; set; }
+            public string Nome { get; set; }
+            public string TpDespesaFixa { get; set; }
+            public TpDespesa() { }
+
+            public TpDespesa(int idTpDespesa, string nome, string tpDespesaFixa)
+            {
+                IdTpDespesa = idTpDespesa;
+                Nome = nome;
+                TpDespesaFixa = tpDespesaFixa;
+            }
+        }
+
+        public class TpReceita
+        {
+            public int IdTpReceita { get; set; }
+            public string Nome { get; set; }
+            public string TpReceitaFixa { get; set; }
+            public TpReceita() { }
+
+            public TpReceita(int idTpReceita, string nome, string tpReceitaFixa)
+            {
+                IdTpReceita = idTpReceita;
+                Nome = nome;
+                TpReceitaFixa = tpReceitaFixa;
+            }
+        }
     }
 }

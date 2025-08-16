@@ -11,11 +11,11 @@ namespace ControleGastos
 {
     public class CadastroDAO
     {
-        public void InserirCadastro(Cadastro.Pessoa pessoa, Cadastro.Endereco endereco)
+        public void CadPessoaInserirCadastro(Cadastro.Pessoa pessoa, Cadastro.Endereco endereco)
         {
             if (!StatusConexao.EstaConectado)
             {
-                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro", 
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -60,7 +60,7 @@ namespace ControleGastos
             }
         }
 
-        public void SalvarCadastro(Cadastro.Pessoa pessoa, Cadastro.Endereco endereco)
+        public void CadPessoaSalvarCadastro(Cadastro.Pessoa pessoa, Cadastro.Endereco endereco)
         {
             if (!StatusConexao.EstaConectado)
             {
@@ -109,7 +109,7 @@ namespace ControleGastos
             }
         }
 
-        public void ExcluirCadastro(int idPessoa)
+        public void CadPessoaExcluirCadastro(int idPessoa)
         {
             if (!StatusConexao.EstaConectado)
             {
@@ -140,13 +140,13 @@ namespace ControleGastos
             }
         }
 
-        public (Cadastro.Pessoa, Cadastro.Endereco) BuscarPorCPF(string cpf)
+        public (Cadastro.Pessoa, Cadastro.Endereco) CadPessoaBuscarPorCPF(string cpf)
         {
             if (!StatusConexao.EstaConectado)
             {
                 MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return(null, null);
+                return (null, null);
             }
 
             try
@@ -199,7 +199,7 @@ namespace ControleGastos
             return (null, null);
         }
 
-        public (Cadastro.Pessoa, Cadastro.Endereco) BuscarPorNome(string nome)
+        public (Cadastro.Pessoa, Cadastro.Endereco) CadPessoaBuscarPorNome(string nome)
         {
             if (!StatusConexao.EstaConectado)
             {
@@ -258,7 +258,7 @@ namespace ControleGastos
             return (null, null);
         }
 
-        public (Cadastro.Pessoa, Cadastro.Endereco) BuscarTodos()
+        public (Cadastro.Pessoa, Cadastro.Endereco) CadPessoaBuscarTodos()
         {
             if (!StatusConexao.EstaConectado)
             {
@@ -312,6 +312,332 @@ namespace ControleGastos
             }
 
             return (null, null);
+        }
+
+        public void CadTpDespesaExcluirCadastro(int IdTpDespesa)
+        {
+            if (!StatusConexao.EstaConectado)
+            {
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            using (MySqlTransaction transacao = StatusConexao.Conexao.BeginTransaction())
+            {
+                try
+                {
+                    string sql = "DELETE FROM TPDESPESA WHERE ID = @id;";
+                    MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao, transacao);
+                    cmd.Parameters.AddWithValue("@id", IdTpDespesa);
+                    cmd.ExecuteNonQuery();
+                    transacao.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transacao.Rollback();
+                    MessageBox.Show("Erro ao excluir tipo de despesa: " + ex.Message, "Erro",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        public void CadTpDespesaInserirCadastro(Cadastro.TpDespesa tpDespesa)
+        {
+            if (!StatusConexao.EstaConectado)
+            {
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            using (MySqlTransaction transacao = StatusConexao.Conexao.BeginTransaction())
+            {
+                try
+                {
+                    string sql = @"INSERT INTO TPDESPESA (NOME, IND_FIXA) 
+                                   VALUES (@nome, @fixa);
+                                   SELECT LAST_INSERT_ID()";
+                    MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao, transacao);
+                    cmd.Parameters.AddWithValue("@nome", tpDespesa.Nome);
+                    cmd.Parameters.AddWithValue("@fixa", tpDespesa.TpDespesaFixa);
+
+                    int idTpDespesa = Convert.ToInt32(cmd.ExecuteScalar());
+                    tpDespesa.IdTpDespesa = idTpDespesa;
+
+                    cmd.ExecuteNonQuery();
+                    transacao.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transacao.Rollback();
+                    MessageBox.Show("Erro ao inserir tipo de despesa: " + ex.Message, "Erro",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        public Cadastro.TpDespesa CadTpDespesaPesquisarPorNome(string nome)
+        {
+            if (!StatusConexao.EstaConectado)
+            {
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+            try
+            {
+                string sql = @"SELECT ID, NOME, IND_FIXA FROM TPDESPESA WHERE NOME LIKE @nome;";
+                MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao);
+                cmd.Parameters.AddWithValue("@nome", nome);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var tpDespesa = new Cadastro.TpDespesa
+                        {
+                            IdTpDespesa = reader.GetInt32("ID"),
+                            Nome = reader.GetString("NOME"),
+                            TpDespesaFixa = reader.GetString("IND_FIXA")
+                        };
+                        
+                        return tpDespesa;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao buscar tipo de despesa: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return null;
+        }
+
+        public Cadastro.TpDespesa CadTpDespesaPesquisarPorId(int idTpDespesa)
+        {
+            if (!StatusConexao.EstaConectado)
+            {
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+            try
+            {
+                string sql = @"SELECT ID, NOME, IND_FIXA FROM TPDESPESA WHERE ID = @id;";
+                MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao);
+                cmd.Parameters.AddWithValue("@id", idTpDespesa);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var tpDespesa = new Cadastro.TpDespesa
+                        {
+                            IdTpDespesa = reader.GetInt32("ID"),
+                            Nome = reader.GetString("NOME"),
+                            TpDespesaFixa = reader.GetString("IND_FIXA")
+                        };
+                        return tpDespesa;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao buscar tipo de despesa: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
+        }
+
+        public void CadTpDespesaSalvarCadastro(Cadastro.TpDespesa tpDespesa)
+        {
+            if (!StatusConexao.EstaConectado)
+            {
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            using (MySqlTransaction transacao = StatusConexao.Conexao.BeginTransaction())
+            {
+                try
+                {
+                    string sql = @"UPDATE TPDESPESA SET NOME = @nome, IND_FIXA = @fixa 
+                                   WHERE ID = @id;";
+                    MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao, transacao);
+                    cmd.Parameters.AddWithValue("@id", tpDespesa.IdTpDespesa);
+                    cmd.Parameters.AddWithValue("@nome", tpDespesa.Nome);
+                    cmd.Parameters.AddWithValue("@fixa", tpDespesa.TpDespesaFixa);
+                    cmd.ExecuteNonQuery();
+                    transacao.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transacao.Rollback();
+                    MessageBox.Show("Erro ao salvar cadastro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+        }
+
+        public void CadTpReceitaExcluirCadastro(int IdTpReceita)
+        {
+            if (!StatusConexao.EstaConectado)
+            {
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            using (MySqlTransaction transacao = StatusConexao.Conexao.BeginTransaction())
+            {
+                try
+                {
+                    string sql = "DELETE FROM TPRECEITA WHERE ID = @id;";
+                    MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao, transacao);
+                    cmd.Parameters.AddWithValue("@id", IdTpReceita);
+                    cmd.ExecuteNonQuery();
+                    transacao.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transacao.Rollback();
+                    MessageBox.Show("Erro ao excluir tipo de receita: " + ex.Message, "Erro",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        public void CadTpReceitaInserirCadastro(Cadastro.TpReceita tpReceita)
+        {
+            if (!StatusConexao.EstaConectado)
+            {
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            using (MySqlTransaction transacao = StatusConexao.Conexao.BeginTransaction())
+            {
+                try
+                {
+                    string sql = @"INSERT INTO TPRECEITA (NOME, IND_FIXA) 
+                                   VALUES (@nome, @fixa);
+                                   SELECT LAST_INSERT_ID()";
+                    MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao, transacao);
+                    cmd.Parameters.AddWithValue("@nome", tpReceita.Nome);
+                    cmd.Parameters.AddWithValue("@fixa", tpReceita.TpReceitaFixa);
+
+                    int idTpReceita = Convert.ToInt32(cmd.ExecuteScalar());
+                    tpReceita.IdTpReceita = idTpReceita;
+
+                    cmd.ExecuteNonQuery();
+                    transacao.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transacao.Rollback();
+                    MessageBox.Show("Erro ao inserir tipo de receita: " + ex.Message, "Erro",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        public Cadastro.TpReceita CadTpReceitaPesquisarPorNome(string nome)
+        {
+            if (!StatusConexao.EstaConectado)
+            {
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+            try
+            {
+                string sql = @"SELECT ID, NOME, IND_FIXA FROM TPRECEITA WHERE NOME LIKE @nome;";
+                MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao);
+                cmd.Parameters.AddWithValue("@nome", nome);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var tpReceita = new Cadastro.TpReceita
+                        {
+                            IdTpReceita = reader.GetInt32("ID"),
+                            Nome = reader.GetString("NOME"),
+                            TpReceitaFixa = reader.GetString("IND_FIXA")
+                        };
+
+                        return tpReceita;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao buscar tipo de receita: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return null;
+        }
+
+        public Cadastro.TpReceita CadTpReceitaPesquisarPorId(int idTpReceita)
+        {
+            if (!StatusConexao.EstaConectado)
+            {
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+            try
+            {
+                string sql = @"SELECT ID, NOME, IND_FIXA FROM TPRECEITA WHERE ID = @id;";
+                MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao);
+                cmd.Parameters.AddWithValue("@id", idTpReceita);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var tpReceita = new Cadastro.TpReceita
+                        {
+                            IdTpReceita = reader.GetInt32("ID"),
+                            Nome = reader.GetString("NOME"),
+                            TpReceitaFixa = reader.GetString("IND_FIXA")
+                        };
+                        return tpReceita;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao buscar tipo de receita: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
+        }
+
+        public void CadTpReceitaSalvarCadastro(Cadastro.TpReceita tpReceita)
+        {
+            if (!StatusConexao.EstaConectado)
+            {
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            using (MySqlTransaction transacao = StatusConexao.Conexao.BeginTransaction())
+            {
+                try
+                {
+                    string sql = @"UPDATE TPRECEITA SET NOME = @nome, IND_FIXA = @fixa 
+                                   WHERE ID = @id;";
+                    MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao, transacao);
+                    cmd.Parameters.AddWithValue("@id", tpReceita.IdTpReceita);
+                    cmd.Parameters.AddWithValue("@nome", tpReceita.Nome);
+                    cmd.Parameters.AddWithValue("@fixa", tpReceita.TpReceitaFixa);
+                    cmd.ExecuteNonQuery();
+                    transacao.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transacao.Rollback();
+                    MessageBox.Show("Erro ao salvar cadastro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
         }
     }
 }
