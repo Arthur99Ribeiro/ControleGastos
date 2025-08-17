@@ -63,5 +63,18 @@ namespace ControleGastos
             int count = Convert.ToInt32(cmd.ExecuteScalar());
             return count > 0;
         }
+
+        public static bool VerificaCadPessoa(string cpf)
+        {
+            if (!StatusConexao.VerificarConexaoAtiva())
+                throw new InvalidOperationException("Sem conexão com banco de dados.");
+
+            string sql = "SELECT COUNT(*) FROM PESSOA WHERE cpf = @cpf";
+            MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao);
+            cmd.Parameters.AddWithValue("@cpf", cpf);
+
+            int count = Convert.ToInt32(cmd.ExecuteScalar());
+            return count > 0;
+        }
     }
 }

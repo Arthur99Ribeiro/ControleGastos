@@ -158,46 +158,56 @@ namespace ControleGastos
             {
                 if (!ucDadosPessoais.ValidaDadosPessoaisPreenchidos() && !ucEndereco.ValidaEnderecoPreenchido())
                 {
-                    DialogResult resultado = MessageBox.Show("Deseja incluir os dados preenchidos em Dados Pessoais e Endereço?", "Incluir Dados",
-                                                                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (resultado == DialogResult.Yes)
+                    string cpf = ucDadosPessoais.ObterDadosPessoaisCPF();
+
+                    if (VerificaCadastro.VerificaCadPessoa(cpf))
                     {
-                        if (idPessoaAtual == 0)
-                        {
-                            var pessoa = ucDadosPessoais.ObterDadosPessoais();
-                            var endereco = ucEndereco.ObterEndereco();
-
-                            CadastroDAO dao = new CadastroDAO();
-                            dao.CadPessoaInserirCadastro(pessoa, endereco);
-
-                            DialogResult result = MessageBox.Show("Cadastro incluído com sucesso! \n" +
-                                                                    "Deja carregar cadastro?", "Sucesso",
-                                                                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                            if (result == DialogResult.Yes)
-                            {
-                                string cpf = ucDadosPessoais.ObterDadosPessoaisCPF();
-
-                                CadastroDAO atu = new CadastroDAO();
-                                var (atuPessoa, atuEndereco) = atu.CadPessoaBuscarPorCPF(cpf);
-                                ucDadosPessoais.PreencherDadosPessoias(atuPessoa);
-                                ucEndereco.PreencherEndereco(atuEndereco);
-                                idPessoaAtual = atuPessoa.Id;
-                                tstIdPessoa.Text = idPessoaAtual.ToString();
-
-                                MessageBox.Show("Cadastro carregado com sucesso!", "Sucesso",
-                                                MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                            else
-                            {
-                                ucDadosPessoais.LimparCamposDadosPessoais();
-                                ucEndereco.LimparCamposEndereco();
-                                idPessoaAtual = 0; // Reseta o ID do cadastro atual
-                                tstIdPessoa.Text = idPessoaAtual.ToString();
-                            }
-
-                        }
+                        MessageBox.Show("Já existe um cadastro com este CPF. \n" +
+                                        "Por favor, verifique o CPF e tente novamente.", "Aviso",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
                     }
+                    else
+                    {
+                        DialogResult resultado = MessageBox.Show("Deseja incluir os dados preenchidos em Dados Pessoais e Endereço?", "Incluir Dados",
+                                                                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (resultado == DialogResult.Yes)
+                        {
+                            if (idPessoaAtual == 0)
+                            {
+                                var pessoa = ucDadosPessoais.ObterDadosPessoais();
+                                var endereco = ucEndereco.ObterEndereco();
+
+                                CadastroDAO dao = new CadastroDAO();
+                                dao.CadPessoaInserirCadastro(pessoa, endereco);
+
+                                DialogResult result = MessageBox.Show("Cadastro incluído com sucesso! \n" +
+                                                                        "Deja carregar cadastro?", "Sucesso",
+                                                                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                                if (result == DialogResult.Yes)
+                                {
+                                    CadastroDAO atu = new CadastroDAO();
+                                    var (atuPessoa, atuEndereco) = atu.CadPessoaBuscarPorCPF(cpf);
+                                    ucDadosPessoais.PreencherDadosPessoias(atuPessoa);
+                                    ucEndereco.PreencherEndereco(atuEndereco);
+                                    idPessoaAtual = atuPessoa.Id;
+                                    tstIdPessoa.Text = idPessoaAtual.ToString();
+
+                                    MessageBox.Show("Cadastro carregado com sucesso!", "Sucesso",
+                                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                else
+                                {
+                                    ucDadosPessoais.LimparCamposDadosPessoais();
+                                    ucEndereco.LimparCamposEndereco();
+                                    idPessoaAtual = 0; // Reseta o ID do cadastro atual
+                                    tstIdPessoa.Text = idPessoaAtual.ToString();
+                                }
+
+                            }
+                        }
+                    }                        
                 }
                 else
                 {
