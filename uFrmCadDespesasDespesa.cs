@@ -12,7 +12,6 @@ namespace ControleGastos
 {
     public partial class uFrmCadDespesasDespesa : Form
     {
-        private ucCadDespesasDepesa ucDespesa;
         private int? IdDespesaAtual = 0;
         public uFrmCadDespesasDespesa()
         {
@@ -21,31 +20,7 @@ namespace ControleGastos
 
         private void uFrmCadDespesasDespesa_Load(object sender, EventArgs e)
         {
-            tvCadDespesa.AfterSelect += tvCadDespesa_AfterSelect;
-            ucDespesa = new ucCadDespesasDepesa();
-            Controle(ucDespesa);
             tstIdDepesa.Text = IdDespesaAtual.ToString();
-        }
-
-        private void Controle(UserControl controle)
-        {
-            spcCadDespesa.Panel2.Controls.Clear();
-            controle.Dock = DockStyle.Fill;
-            spcCadDespesa.Panel2.Controls.Add(controle);
-            if (controle is IFocusInicial foco)
-            {
-                foco.FocarCampoInicial();
-            }
-        }
-
-        private void tvCadDespesa_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            switch (e.Node.Text)
-            {
-                case "Despesa":
-                    Controle(ucDespesa);
-                    break;
-            }
         }
 
         private void tslCadDespesaExcluir_MouseEnter(object sender, EventArgs e)

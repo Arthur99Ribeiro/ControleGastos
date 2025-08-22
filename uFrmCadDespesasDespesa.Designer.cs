@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            TreeNode treeNode1 = new TreeNode("Despesa");
             tsCadDespesa = new ToolStrip();
             toolStripSeparator1 = new ToolStripSeparator();
             tslCadDespesaExcluir = new ToolStripLabel();
@@ -43,12 +42,7 @@
             toolStripSeparator6 = new ToolStripSeparator();
             tslIdDepesa = new ToolStripLabel();
             tstIdDepesa = new ToolStripTextBox();
-            spcCadDespesa = new SplitContainer();
-            tvCadDespesa = new TreeView();
             tsCadDespesa.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)spcCadDespesa).BeginInit();
-            spcCadDespesa.Panel1.SuspendLayout();
-            spcCadDespesa.SuspendLayout();
             SuspendLayout();
             // 
             // tsCadDespesa
@@ -152,41 +146,12 @@
             tstIdDepesa.Name = "tstIdDepesa";
             tstIdDepesa.Size = new Size(100, 30);
             // 
-            // spcCadDespesa
-            // 
-            spcCadDespesa.Dock = DockStyle.Fill;
-            spcCadDespesa.Location = new Point(0, 30);
-            spcCadDespesa.Name = "spcCadDespesa";
-            // 
-            // spcCadDespesa.Panel1
-            // 
-            spcCadDespesa.Panel1.Controls.Add(tvCadDespesa);
-            // 
-            // spcCadDespesa.Panel2
-            // 
-            spcCadDespesa.Panel2.BackColor = Color.White;
-            spcCadDespesa.Size = new Size(800, 420);
-            spcCadDespesa.SplitterDistance = 175;
-            spcCadDespesa.TabIndex = 2;
-            // 
-            // tvCadDespesa
-            // 
-            tvCadDespesa.Dock = DockStyle.Fill;
-            tvCadDespesa.Location = new Point(0, 0);
-            tvCadDespesa.Name = "tvCadDespesa";
-            treeNode1.Name = "tvCadDespesa";
-            treeNode1.Text = "Despesa";
-            tvCadDespesa.Nodes.AddRange(new TreeNode[] { treeNode1 });
-            tvCadDespesa.Size = new Size(175, 420);
-            tvCadDespesa.TabIndex = 3;
-            tvCadDespesa.AfterSelect += tvCadDespesa_AfterSelect;
-            // 
             // uFrmCadDespesasDespesa
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(800, 450);
-            Controls.Add(spcCadDespesa);
             Controls.Add(tsCadDespesa);
             Name = "uFrmCadDespesasDespesa";
             StartPosition = FormStartPosition.CenterScreen;
@@ -194,9 +159,6 @@
             Load += uFrmCadDespesasDespesa_Load;
             tsCadDespesa.ResumeLayout(false);
             tsCadDespesa.PerformLayout();
-            spcCadDespesa.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)spcCadDespesa).EndInit();
-            spcCadDespesa.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -204,8 +166,6 @@
 
         private ToolStrip tsCadDespesa;
         private ToolStripSeparator toolStripSeparator1;
-        private SplitContainer spcCadDespesa;
-        private TreeView tvCadDespesa;
         private ToolStripLabel tslCadDespesaExcluir;
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripLabel tslCadDespesaIncluir;

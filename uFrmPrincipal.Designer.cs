@@ -104,14 +104,14 @@
             // mpCadReceitasReceita
             // 
             mpCadReceitasReceita.Name = "mpCadReceitasReceita";
-            mpCadReceitasReceita.Size = new Size(154, 22);
+            mpCadReceitasReceita.Size = new Size(180, 22);
             mpCadReceitasReceita.Text = "Receita";
             mpCadReceitasReceita.Click += mpCadReceitasReceita_Click;
             // 
             // mpCadReceitasTpReceita
             // 
             mpCadReceitasTpReceita.Name = "mpCadReceitasTpReceita";
-            mpCadReceitasTpReceita.Size = new Size(154, 22);
+            mpCadReceitasTpReceita.Size = new Size(180, 22);
             mpCadReceitasTpReceita.Text = "Tipo de Receita";
             mpCadReceitasTpReceita.Click += mpCadReceitasTpReceita_Click;
             // 
@@ -125,14 +125,14 @@
             // mpCadDespesasDespesa
             // 
             mpCadDespesasDespesa.Name = "mpCadDespesasDespesa";
-            mpCadDespesasDespesa.Size = new Size(159, 22);
+            mpCadDespesasDespesa.Size = new Size(180, 22);
             mpCadDespesasDespesa.Text = "Despesa";
             mpCadDespesasDespesa.Click += mpCadDespesasDespesa_Click;
             // 
             // mpCadDespesasTpDespesa
             // 
             mpCadDespesasTpDespesa.Name = "mpCadDespesasTpDespesa";
-            mpCadDespesasTpDespesa.Size = new Size(159, 22);
+            mpCadDespesasTpDespesa.Size = new Size(180, 22);
             mpCadDespesasTpDespesa.Text = "Tipo de Despesa";
             mpCadDespesasTpDespesa.Click += mpCadDespesasTpDespesa_Click;
             // 

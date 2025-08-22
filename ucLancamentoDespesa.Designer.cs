@@ -1,6 +1,6 @@
 ﻿namespace ControleGastos
 {
-    partial class ucCadReceitasReceita
+    partial class ucLancamentoDespesa
     {
         /// <summary> 
         /// Variável de designer necessária.
@@ -28,8 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            SuspendLayout();
+            // 
+            // ucCadDespesasDepesa
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Name = "ucCadDespesasDepesa";
+            Size = new Size(474, 329);
+            ResumeLayout(false);
         }
 
         #endregion

@@ -13,7 +13,6 @@ namespace ControleGastos
 {
     public partial class uFrmCadReceitasReceita : Form
     {
-        private ucCadReceitasReceita ucReceita;
         private int? IdReceitaAtual = 0;
         public uFrmCadReceitasReceita()
         {
@@ -21,34 +20,7 @@ namespace ControleGastos
         }
         private void uFrmCadReceitasReceita_Load(object sender, EventArgs e)
         {
-            tvCadReceita.AfterSelect += tvCadReceita_AfterSelect;
-
-            ucReceita = new ucCadReceitasReceita();
-
-            Controle(ucReceita);
             tstIdReceita.Text = IdReceitaAtual.ToString();
-        }
-
-        private void Controle(UserControl controle)
-        {
-            spcCadReceita.Panel2.Controls.Clear();
-            controle.Dock = DockStyle.Fill;
-            spcCadReceita.Panel2.Controls.Add(controle);
-
-            if (controle is IFocusInicial foco)
-            {
-                foco.FocarCampoInicial();
-            }
-        }
-
-        private void tvCadReceita_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            switch (e.Node.Text)
-            {
-                case "Dados Pessoais":
-                    Controle(ucReceita);
-                    break;
-            }
         }
 
         private void tslCadReceitaExcluir_MouseEnter(object sender, EventArgs e)

@@ -10,11 +10,12 @@ using System.Windows.Forms;
 
 namespace ControleGastos
 {
-    public partial class ucCadDespesasDepesa : UserControl
+    public partial class ucLancamentoDespesa : UserControl
     {
-        public ucCadDespesasDepesa()
+        public ucLancamentoDespesa()
         {
             InitializeComponent();
         }
+
     }
 }

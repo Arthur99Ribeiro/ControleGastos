@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            TreeNode treeNode1 = new TreeNode("Receita");
             tsCadReceita = new ToolStrip();
             toolStripSeparator3 = new ToolStripSeparator();
             tslCadReceitaExcluir = new ToolStripLabel();
@@ -43,12 +42,7 @@
             toolStripSeparator6 = new ToolStripSeparator();
             tslIdReceita = new ToolStripLabel();
             tstIdReceita = new ToolStripTextBox();
-            spcCadReceita = new SplitContainer();
-            tvCadReceita = new TreeView();
             tsCadReceita.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)spcCadReceita).BeginInit();
-            spcCadReceita.Panel1.SuspendLayout();
-            spcCadReceita.SuspendLayout();
             SuspendLayout();
             // 
             // tsCadReceita
@@ -58,7 +52,7 @@
             tsCadReceita.Items.AddRange(new ToolStripItem[] { toolStripSeparator3, tslCadReceitaExcluir, toolStripSeparator2, tslCadReceitaIncluir, toolStripSeparator1, tslCadReceitaSalvar, toolStripSeparator4, tslCadReceitaPesquisar, toolStripSeparator5, tslCadReceitaLimpar, toolStripSeparator6, tslIdReceita, tstIdReceita });
             tsCadReceita.Location = new Point(0, 0);
             tsCadReceita.Name = "tsCadReceita";
-            tsCadReceita.Size = new Size(595, 30);
+            tsCadReceita.Size = new Size(693, 30);
             tsCadReceita.TabIndex = 0;
             tsCadReceita.Text = "toolStrip1";
             // 
@@ -152,43 +146,12 @@
             tstIdReceita.Name = "tstIdReceita";
             tstIdReceita.Size = new Size(100, 30);
             // 
-            // spcCadReceita
-            // 
-            spcCadReceita.Dock = DockStyle.Fill;
-            spcCadReceita.FixedPanel = FixedPanel.Panel1;
-            spcCadReceita.IsSplitterFixed = true;
-            spcCadReceita.Location = new Point(0, 30);
-            spcCadReceita.Name = "spcCadReceita";
-            // 
-            // spcCadReceita.Panel1
-            // 
-            spcCadReceita.Panel1.Controls.Add(tvCadReceita);
-            // 
-            // spcCadReceita.Panel2
-            // 
-            spcCadReceita.Panel2.BackColor = Color.White;
-            spcCadReceita.Size = new Size(595, 260);
-            spcCadReceita.SplitterDistance = 177;
-            spcCadReceita.TabIndex = 1;
-            // 
-            // tvCadReceita
-            // 
-            tvCadReceita.Dock = DockStyle.Fill;
-            tvCadReceita.Location = new Point(0, 0);
-            tvCadReceita.Name = "tvCadReceita";
-            treeNode1.Name = "tvCadReceitaReceita";
-            treeNode1.Text = "Receita";
-            tvCadReceita.Nodes.AddRange(new TreeNode[] { treeNode1 });
-            tvCadReceita.Size = new Size(177, 260);
-            tvCadReceita.TabIndex = 0;
-            tvCadReceita.AfterSelect += tvCadReceita_AfterSelect;
-            // 
             // uFrmCadReceitasReceita
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(595, 290);
-            Controls.Add(spcCadReceita);
+            BackColor = Color.White;
+            ClientSize = new Size(693, 427);
             Controls.Add(tsCadReceita);
             Name = "uFrmCadReceitasReceita";
             StartPosition = FormStartPosition.CenterScreen;
@@ -196,17 +159,12 @@
             Load += uFrmCadReceitasReceita_Load;
             tsCadReceita.ResumeLayout(false);
             tsCadReceita.PerformLayout();
-            spcCadReceita.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)spcCadReceita).EndInit();
-            spcCadReceita.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
         private ToolStrip tsCadReceita;
-        private SplitContainer spcCadReceita;
-        private TreeView tvCadReceita;
         private ToolStripLabel tslCadReceitaExcluir;
         private ToolStripLabel tslCadReceitaIncluir;
         private ToolStripSeparator toolStripSeparator2;

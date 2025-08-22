@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ControleGastos
 {
-    public partial class ucCadReceitasReceita : UserControl
+    public partial class ucLancamentoReceita : UserControl
     {
-        public ucCadReceitasReceita()
+        public ucLancamentoReceita()
         {
             InitializeComponent();
         }
