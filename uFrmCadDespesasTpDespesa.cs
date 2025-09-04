@@ -87,7 +87,9 @@ namespace ControleGastos
         private void limparCampos()
         {
             txCadTpDespesaNome.Text = string.Empty;
-            cbCadTpDespesaFixa.Checked = false;
+            ckbCadTpDespesaFixa.Checked = false;
+            idTpDespesaAtual = 0;
+            tstTpDespesaIdTpDespesa.Text = idTpDespesaAtual.ToString();
         }
 
         private Cadastro.TpDespesa obterCampos()
@@ -96,14 +98,14 @@ namespace ControleGastos
             {
                 IdTpDespesa = idTpDespesaAtual,
                 Nome = txCadTpDespesaNome.Text.Trim().ToUpper(),
-                TpDespesaFixa = Helper.CheckBoxHelper.SorN(cbCadTpDespesaFixa)
+                TpDespesaFixa = Helper.CheckBoxHelper.SorN(ckbCadTpDespesaFixa)
             };
         }
 
         private void preencherCampos(Cadastro.TpDespesa tpDespesa)
         {
             txCadTpDespesaNome.Text = tpDespesa.Nome;
-            Helper.CheckBoxHelper.TorF(cbCadTpDespesaFixa, tpDespesa.TpDespesaFixa);
+            Helper.CheckBoxHelper.TorF(ckbCadTpDespesaFixa, tpDespesa.TpDespesaFixa);
         }
 
         private void tslTpDespesaLimpar_Click(object sender, EventArgs e)
@@ -122,8 +124,6 @@ namespace ControleGastos
                 if (resultado == DialogResult.Yes)
                 {
                     limparCampos();
-                    idTpDespesaAtual = 0;
-                    tstTpDespesaIdTpDespesa.Text = idTpDespesaAtual.ToString();
 
                     MessageBox.Show("Campos limpos com sucesso.", "Sucesso",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -175,7 +175,7 @@ namespace ControleGastos
         {
             if (idTpDespesaAtual == 0)
             {
-                MessageBox.Show("Cadastro não existente! /n Faça a inclusão!!", "Aviso",
+                MessageBox.Show("Cadastro não existente! \n Faça a inclusão!!", "Aviso",
                                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }

@@ -83,5 +83,18 @@ namespace ControleGastos
                 TpReceitaFixa = tpReceitaFixa;
             }
         }
+
+        public class CategoriaDespesa
+        {
+            public int IdCategoriaDespesa { get; set; }
+            public string Nome { get; set; }
+            
+            public CategoriaDespesa() { }
+            public CategoriaDespesa(int idCategoriaDespesa, string nome)
+            {
+                IdCategoriaDespesa = idCategoriaDespesa;
+                Nome = nome;
+            }
+        }
     }
 }

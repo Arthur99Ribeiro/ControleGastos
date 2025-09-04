@@ -131,5 +131,10 @@ namespace ControleGastos
         {
             AbrirFormulario<uFrmCadDespesasTpDespesa>();
         }
+
+        private void mpCadDespesasCategoriaDespesa_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<uFrmCadDespesaCategoriaDespesa>();
+        }
     }
 }

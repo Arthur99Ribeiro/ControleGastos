@@ -86,7 +86,7 @@ namespace ControleGastos
         private void limparCampos()
         {
             txCadTpReceitaNome.Text = string.Empty;
-            cbCadTpReceitaFixa.Checked = false;
+            ckbCadTpReceitaFixa.Checked = false;
         }
 
         private Cadastro.TpReceita obterCampos()
@@ -95,14 +95,14 @@ namespace ControleGastos
             {
                 IdTpReceita = idTpReceitaAtual,
                 Nome = txCadTpReceitaNome.Text.Trim().ToUpper(),
-                TpReceitaFixa = Helper.CheckBoxHelper.SorN(cbCadTpReceitaFixa)
+                TpReceitaFixa = Helper.CheckBoxHelper.SorN(ckbCadTpReceitaFixa)
             };
         }
 
         private void preencherCampos(Cadastro.TpReceita tpReceita)
         {
             txCadTpReceitaNome.Text = tpReceita.Nome;
-            Helper.CheckBoxHelper.TorF(cbCadTpReceitaFixa, tpReceita.TpReceitaFixa);
+            Helper.CheckBoxHelper.TorF(ckbCadTpReceitaFixa, tpReceita.TpReceitaFixa);
         }
 
         private void tslTpReceitaLimpar_Click(object sender, EventArgs e)

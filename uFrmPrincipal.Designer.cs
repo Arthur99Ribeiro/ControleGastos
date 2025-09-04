@@ -45,6 +45,7 @@
             menuPrincipalRelatorios = new ToolStripMenuItem();
             stUsuarioLogado = new StatusStrip();
             lbUsuarioLogado = new ToolStripStatusLabel();
+            mpCadDespesasCategoriaDespesa = new ToolStripMenuItem();
             menuPrincipal.SuspendLayout();
             stUsuarioLogado.SuspendLayout();
             SuspendLayout();
@@ -117,7 +118,7 @@
             // 
             // menuPrincipalCadastrosGastos
             // 
-            menuPrincipalCadastrosGastos.DropDownItems.AddRange(new ToolStripItem[] { mpCadDespesasDespesa, mpCadDespesasTpDespesa });
+            menuPrincipalCadastrosGastos.DropDownItems.AddRange(new ToolStripItem[] { mpCadDespesasDespesa, mpCadDespesasTpDespesa, mpCadDespesasCategoriaDespesa });
             menuPrincipalCadastrosGastos.Name = "menuPrincipalCadastrosGastos";
             menuPrincipalCadastrosGastos.Size = new Size(180, 22);
             menuPrincipalCadastrosGastos.Text = "Despesas";
@@ -168,6 +169,13 @@
             lbUsuarioLogado.Name = "lbUsuarioLogado";
             lbUsuarioLogado.Size = new Size(0, 17);
             // 
+            // mpCadDespesasCategoriaDespesa
+            // 
+            mpCadDespesasCategoriaDespesa.Name = "mpCadDespesasCategoriaDespesa";
+            mpCadDespesasCategoriaDespesa.Size = new Size(180, 22);
+            mpCadDespesasCategoriaDespesa.Text = "Categoria Desepesa";
+            mpCadDespesasCategoriaDespesa.Click += mpCadDespesasCategoriaDespesa_Click;
+            // 
             // uFrmPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -211,5 +219,6 @@
         private ToolStripMenuItem mpCadDespesasDespesa;
         private ToolStripMenuItem mpCadDespesasTpDespesa;
         private ToolStripMenuItem menuPrincipalLancamentos;
+        private ToolStripMenuItem mpCadDespesasCategoriaDespesa;
     }
 }

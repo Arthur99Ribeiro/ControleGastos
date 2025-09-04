@@ -43,7 +43,7 @@
             tslTpDespesaIdTpDespesa = new ToolStripLabel();
             tstTpDespesaIdTpDespesa = new ToolStripTextBox();
             gbCadTpDespesa = new GroupBox();
-            cbCadTpDespesaFixa = new CheckBox();
+            ckbCadTpDespesaFixa = new CheckBox();
             txCadTpDespesaNome = new TextBox();
             lbCadTpDespesaNome = new Label();
             tsCadTpDespesa.SuspendLayout();
@@ -57,7 +57,7 @@
             tsCadTpDespesa.Items.AddRange(new ToolStripItem[] { toolStripSeparator1, tslTpDespesaExcluir, toolStripSeparator2, tslTpDespesaIncluir, toolStripSeparator3, tslTpDespesaSalvar, toolStripSeparator4, tslTpDespesaPesquisar, toolStripSeparator5, tslTpDespesaLimpar, toolStripSeparator6, tslTpDespesaIdTpDespesa, tstTpDespesaIdTpDespesa });
             tsCadTpDespesa.Location = new Point(0, 0);
             tsCadTpDespesa.Name = "tsCadTpDespesa";
-            tsCadTpDespesa.Size = new Size(390, 30);
+            tsCadTpDespesa.Size = new Size(381, 30);
             tsCadTpDespesa.TabIndex = 0;
             tsCadTpDespesa.Text = "toolStrip1";
             // 
@@ -158,25 +158,25 @@
             // 
             // gbCadTpDespesa
             // 
-            gbCadTpDespesa.Controls.Add(cbCadTpDespesaFixa);
+            gbCadTpDespesa.Controls.Add(ckbCadTpDespesaFixa);
             gbCadTpDespesa.Controls.Add(txCadTpDespesaNome);
             gbCadTpDespesa.Controls.Add(lbCadTpDespesaNome);
             gbCadTpDespesa.Location = new Point(12, 33);
             gbCadTpDespesa.Name = "gbCadTpDespesa";
-            gbCadTpDespesa.Size = new Size(366, 91);
+            gbCadTpDespesa.Size = new Size(357, 91);
             gbCadTpDespesa.TabIndex = 1;
             gbCadTpDespesa.TabStop = false;
             gbCadTpDespesa.Text = "Tipo de Despesa";
             // 
-            // cbCadTpDespesaFixa
+            // ckbCadTpDespesaFixa
             // 
-            cbCadTpDespesaFixa.AutoSize = true;
-            cbCadTpDespesaFixa.Location = new Point(6, 66);
-            cbCadTpDespesaFixa.Name = "cbCadTpDespesaFixa";
-            cbCadTpDespesaFixa.Size = new Size(93, 19);
-            cbCadTpDespesaFixa.TabIndex = 2;
-            cbCadTpDespesaFixa.Text = "Despesa Fixa";
-            cbCadTpDespesaFixa.UseVisualStyleBackColor = true;
+            ckbCadTpDespesaFixa.AutoSize = true;
+            ckbCadTpDespesaFixa.Location = new Point(6, 66);
+            ckbCadTpDespesaFixa.Name = "ckbCadTpDespesaFixa";
+            ckbCadTpDespesaFixa.Size = new Size(93, 19);
+            ckbCadTpDespesaFixa.TabIndex = 2;
+            ckbCadTpDespesaFixa.Text = "Despesa Fixa";
+            ckbCadTpDespesaFixa.UseVisualStyleBackColor = true;
             // 
             // txCadTpDespesaNome
             // 
@@ -184,7 +184,7 @@
             txCadTpDespesaNome.Location = new Point(6, 37);
             txCadTpDespesaNome.Name = "txCadTpDespesaNome";
             txCadTpDespesaNome.PlaceholderText = "Digite o nome do tipo de despesa";
-            txCadTpDespesaNome.Size = new Size(354, 23);
+            txCadTpDespesaNome.Size = new Size(341, 23);
             txCadTpDespesaNome.TabIndex = 1;
             txCadTpDespesaNome.Enter += txCadTpDespesaNome_Enter;
             txCadTpDespesaNome.Leave += txCadTpDespesaNome_Leave;
@@ -203,7 +203,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(390, 136);
+            ClientSize = new Size(381, 136);
             Controls.Add(gbCadTpDespesa);
             Controls.Add(tsCadTpDespesa);
             Name = "uFrmCadDespesasTpDespesa";
@@ -236,6 +236,6 @@
         private GroupBox gbCadTpDespesa;
         private Label lbCadTpDespesaNome;
         private TextBox txCadTpDespesaNome;
-        private CheckBox cbCadTpDespesaFixa;
+        private CheckBox ckbCadTpDespesaFixa;
     }
 }

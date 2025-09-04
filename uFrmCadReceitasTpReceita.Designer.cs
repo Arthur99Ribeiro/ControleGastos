@@ -43,7 +43,7 @@
             tslTpReceitaTpReceita = new ToolStripLabel();
             tstTpReceitaIdTpReceita = new ToolStripTextBox();
             gbCadTpRceita = new GroupBox();
-            cbCadTpReceitaFixa = new CheckBox();
+            ckbCadTpReceitaFixa = new CheckBox();
             txCadTpReceitaNome = new TextBox();
             lbCadTpReceitaNome = new Label();
             tsCadTpReceita.SuspendLayout();
@@ -158,7 +158,7 @@
             // 
             // gbCadTpRceita
             // 
-            gbCadTpRceita.Controls.Add(cbCadTpReceitaFixa);
+            gbCadTpRceita.Controls.Add(ckbCadTpReceitaFixa);
             gbCadTpRceita.Controls.Add(txCadTpReceitaNome);
             gbCadTpRceita.Controls.Add(lbCadTpReceitaNome);
             gbCadTpRceita.Location = new Point(12, 33);
@@ -168,15 +168,15 @@
             gbCadTpRceita.TabStop = false;
             gbCadTpRceita.Text = "Tipo de Receita";
             // 
-            // cbCadTpReceitaFixa
+            // ckbCadTpReceitaFixa
             // 
-            cbCadTpReceitaFixa.AutoSize = true;
-            cbCadTpReceitaFixa.Location = new Point(6, 66);
-            cbCadTpReceitaFixa.Name = "cbCadTpReceitaFixa";
-            cbCadTpReceitaFixa.Size = new Size(88, 19);
-            cbCadTpReceitaFixa.TabIndex = 2;
-            cbCadTpReceitaFixa.Text = "Receita Fixa";
-            cbCadTpReceitaFixa.UseVisualStyleBackColor = true;
+            ckbCadTpReceitaFixa.AutoSize = true;
+            ckbCadTpReceitaFixa.Location = new Point(6, 66);
+            ckbCadTpReceitaFixa.Name = "ckbCadTpReceitaFixa";
+            ckbCadTpReceitaFixa.Size = new Size(88, 19);
+            ckbCadTpReceitaFixa.TabIndex = 2;
+            ckbCadTpReceitaFixa.Text = "Receita Fixa";
+            ckbCadTpReceitaFixa.UseVisualStyleBackColor = true;
             // 
             // txCadTpReceitaNome
             // 
@@ -235,6 +235,6 @@
         private GroupBox gbCadTpRceita;
         private TextBox txCadTpReceitaNome;
         private Label lbCadTpReceitaNome;
-        private CheckBox cbCadTpReceitaFixa;
+        private CheckBox ckbCadTpReceitaFixa;
     }
 }

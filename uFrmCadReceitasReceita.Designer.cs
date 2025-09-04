@@ -42,7 +42,14 @@
             toolStripSeparator6 = new ToolStripSeparator();
             tslIdReceita = new ToolStripLabel();
             tstIdReceita = new ToolStripTextBox();
+            gbCadReceita = new GroupBox();
+            lbCadReceitaNome = new Label();
+            txCadReceitaNome = new TextBox();
+            lbCadReceitaTpReceita = new Label();
+            cbCadReceitaTpReceita = new ComboBox();
+            ckbCadReceitaRecorrente = new CheckBox();
             tsCadReceita.SuspendLayout();
+            gbCadReceita.SuspendLayout();
             SuspendLayout();
             // 
             // tsCadReceita
@@ -52,7 +59,7 @@
             tsCadReceita.Items.AddRange(new ToolStripItem[] { toolStripSeparator3, tslCadReceitaExcluir, toolStripSeparator2, tslCadReceitaIncluir, toolStripSeparator1, tslCadReceitaSalvar, toolStripSeparator4, tslCadReceitaPesquisar, toolStripSeparator5, tslCadReceitaLimpar, toolStripSeparator6, tslIdReceita, tstIdReceita });
             tsCadReceita.Location = new Point(0, 0);
             tsCadReceita.Name = "tsCadReceita";
-            tsCadReceita.Size = new Size(693, 30);
+            tsCadReceita.Size = new Size(375, 30);
             tsCadReceita.TabIndex = 0;
             tsCadReceita.Text = "toolStrip1";
             // 
@@ -146,12 +153,72 @@
             tstIdReceita.Name = "tstIdReceita";
             tstIdReceita.Size = new Size(100, 30);
             // 
+            // gbCadReceita
+            // 
+            gbCadReceita.Controls.Add(ckbCadReceitaRecorrente);
+            gbCadReceita.Controls.Add(cbCadReceitaTpReceita);
+            gbCadReceita.Controls.Add(lbCadReceitaTpReceita);
+            gbCadReceita.Controls.Add(txCadReceitaNome);
+            gbCadReceita.Controls.Add(lbCadReceitaNome);
+            gbCadReceita.Location = new Point(12, 43);
+            gbCadReceita.Name = "gbCadReceita";
+            gbCadReceita.Size = new Size(351, 145);
+            gbCadReceita.TabIndex = 1;
+            gbCadReceita.TabStop = false;
+            gbCadReceita.Text = "Cadastro de Receita";
+            // 
+            // lbCadReceitaNome
+            // 
+            lbCadReceitaNome.AutoSize = true;
+            lbCadReceitaNome.Location = new Point(3, 19);
+            lbCadReceitaNome.Name = "lbCadReceitaNome";
+            lbCadReceitaNome.Size = new Size(40, 15);
+            lbCadReceitaNome.TabIndex = 0;
+            lbCadReceitaNome.Text = "Nome";
+            // 
+            // txCadReceitaNome
+            // 
+            txCadReceitaNome.Cursor = Cursors.IBeam;
+            txCadReceitaNome.Location = new Point(6, 37);
+            txCadReceitaNome.Name = "txCadReceitaNome";
+            txCadReceitaNome.Size = new Size(336, 23);
+            txCadReceitaNome.TabIndex = 1;
+            // 
+            // lbCadReceitaTpReceita
+            // 
+            lbCadReceitaTpReceita.AutoSize = true;
+            lbCadReceitaTpReceita.Location = new Point(6, 63);
+            lbCadReceitaTpReceita.Name = "lbCadReceitaTpReceita";
+            lbCadReceitaTpReceita.Size = new Size(87, 15);
+            lbCadReceitaTpReceita.TabIndex = 2;
+            lbCadReceitaTpReceita.Text = "Tipo de Receita";
+            // 
+            // cbCadReceitaTpReceita
+            // 
+            cbCadReceitaTpReceita.Cursor = Cursors.Hand;
+            cbCadReceitaTpReceita.FormattingEnabled = true;
+            cbCadReceitaTpReceita.Location = new Point(6, 81);
+            cbCadReceitaTpReceita.Name = "cbCadReceitaTpReceita";
+            cbCadReceitaTpReceita.Size = new Size(336, 23);
+            cbCadReceitaTpReceita.TabIndex = 3;
+            // 
+            // ckbCadReceitaRecorrente
+            // 
+            ckbCadReceitaRecorrente.AutoSize = true;
+            ckbCadReceitaRecorrente.Location = new Point(6, 110);
+            ckbCadReceitaRecorrente.Name = "ckbCadReceitaRecorrente";
+            ckbCadReceitaRecorrente.Size = new Size(124, 19);
+            ckbCadReceitaRecorrente.TabIndex = 4;
+            ckbCadReceitaRecorrente.Text = "Receita Recorrente";
+            ckbCadReceitaRecorrente.UseVisualStyleBackColor = true;
+            // 
             // uFrmCadReceitasReceita
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(693, 427);
+            ClientSize = new Size(375, 200);
+            Controls.Add(gbCadReceita);
             Controls.Add(tsCadReceita);
             Name = "uFrmCadReceitasReceita";
             StartPosition = FormStartPosition.CenterScreen;
@@ -159,6 +226,8 @@
             Load += uFrmCadReceitasReceita_Load;
             tsCadReceita.ResumeLayout(false);
             tsCadReceita.PerformLayout();
+            gbCadReceita.ResumeLayout(false);
+            gbCadReceita.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -178,5 +247,11 @@
         private ToolStripLabel tslIdReceita;
         private ToolStripTextBox tstIdReceita;
         private ToolStripSeparator toolStripSeparator6;
+        private GroupBox gbCadReceita;
+        private Label lbCadReceitaTpReceita;
+        private TextBox txCadReceitaNome;
+        private Label lbCadReceitaNome;
+        private CheckBox ckbCadReceitaRecorrente;
+        private ComboBox cbCadReceitaTpReceita;
     }
 }

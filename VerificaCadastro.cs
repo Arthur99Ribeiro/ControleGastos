@@ -43,7 +43,7 @@ namespace ControleGastos
             if (!StatusConexao.VerificarConexaoAtiva())
                 throw new InvalidOperationException("Sem conexão com banco de dados.");
 
-            string sql = "SELECT COUNT(*) FROM TIPO_DESPESA WHERE nome = @nome";
+            string sql = "SELECT COUNT(*) FROM TP_DESPESA WHERE nome = @nome";
             MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao);
             cmd.Parameters.AddWithValue("@nome", nome);
 
@@ -56,7 +56,7 @@ namespace ControleGastos
             if (!StatusConexao.VerificarConexaoAtiva())
                 throw new InvalidOperationException("Sem conexão com banco de dados.");
 
-            string sql = "SELECT COUNT(*) FROM TIPO_RECEITA WHERE nome = @nome";
+            string sql = "SELECT COUNT(*) FROM TP_RECEITA WHERE nome = @nome";
             MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao);
             cmd.Parameters.AddWithValue("@nome", nome);
 
@@ -76,5 +76,19 @@ namespace ControleGastos
             int count = Convert.ToInt32(cmd.ExecuteScalar());
             return count > 0;
         }
+
+        public static bool VerificaCadCategoriaDespesa(string nome)
+        {
+            if (!StatusConexao.VerificarConexaoAtiva())
+                throw new InvalidOperationException("Sem conexão com banco de dados.");
+
+            string sql = "SELECT COUNT(*) FROM CATEGORIA_DESPESA WHERE nome = @nome";
+            MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao);
+            cmd.Parameters.AddWithValue("@nome", nome);
+
+            int count = Convert.ToInt32(cmd.ExecuteScalar());
+            return count > 0;
+        }
+
     }
 }

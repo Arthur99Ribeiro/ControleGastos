@@ -327,7 +327,7 @@ namespace ControleGastos
             {
                 try
                 {
-                    string sql = "DELETE FROM TPDESPESA WHERE ID = @id;";
+                    string sql = "DELETE FROM TP_DESPESA WHERE ID = @id;";
                     MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao, transacao);
                     cmd.Parameters.AddWithValue("@id", IdTpDespesa);
                     cmd.ExecuteNonQuery();
@@ -355,7 +355,7 @@ namespace ControleGastos
             {
                 try
                 {
-                    string sql = @"INSERT INTO TPDESPESA (NOME, IND_FIXA) 
+                    string sql = @"INSERT INTO TP_DESPESA (NOME, IND_FIXA) 
                                    VALUES (@nome, @fixa);
                                    SELECT LAST_INSERT_ID()";
                     MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao, transacao);
@@ -387,7 +387,7 @@ namespace ControleGastos
             }
             try
             {
-                string sql = @"SELECT ID, NOME, IND_FIXA FROM TPDESPESA WHERE NOME LIKE @nome;";
+                string sql = @"SELECT ID, NOME, IND_FIXA FROM TP_DESPESA WHERE NOME LIKE @nome;";
                 MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao);
                 cmd.Parameters.AddWithValue("@nome", nome);
                 using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -423,7 +423,7 @@ namespace ControleGastos
             }
             try
             {
-                string sql = @"SELECT ID, NOME, IND_FIXA FROM TPDESPESA WHERE ID = @id;";
+                string sql = @"SELECT ID, NOME, IND_FIXA FROM TP_DESPESA WHERE ID = @id;";
                 MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao);
                 cmd.Parameters.AddWithValue("@id", idTpDespesa);
                 using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -459,7 +459,7 @@ namespace ControleGastos
             {
                 try
                 {
-                    string sql = @"UPDATE TPDESPESA SET NOME = @nome, IND_FIXA = @fixa 
+                    string sql = @"UPDATE TP_DESPESA SET NOME = @nome, IND_FIXA = @fixa 
                                    WHERE ID = @id;";
                     MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao, transacao);
                     cmd.Parameters.AddWithValue("@id", tpDespesa.IdTpDespesa);
@@ -490,7 +490,7 @@ namespace ControleGastos
             {
                 try
                 {
-                    string sql = "DELETE FROM TPRECEITA WHERE ID = @id;";
+                    string sql = "DELETE FROM TP_RECEITA WHERE ID = @id;";
                     MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao, transacao);
                     cmd.Parameters.AddWithValue("@id", IdTpReceita);
                     cmd.ExecuteNonQuery();
@@ -518,7 +518,7 @@ namespace ControleGastos
             {
                 try
                 {
-                    string sql = @"INSERT INTO TPRECEITA (NOME, IND_FIXA) 
+                    string sql = @"INSERT INTO TP_RECEITA (NOME, IND_FIXA) 
                                    VALUES (@nome, @fixa);
                                    SELECT LAST_INSERT_ID()";
                     MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao, transacao);
@@ -550,7 +550,7 @@ namespace ControleGastos
             }
             try
             {
-                string sql = @"SELECT ID, NOME, IND_FIXA FROM TPRECEITA WHERE NOME LIKE @nome;";
+                string sql = @"SELECT ID, NOME, IND_FIXA FROM TP_RECEITA WHERE NOME LIKE @nome;";
                 MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao);
                 cmd.Parameters.AddWithValue("@nome", nome);
                 using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -586,7 +586,7 @@ namespace ControleGastos
             }
             try
             {
-                string sql = @"SELECT ID, NOME, IND_FIXA FROM TPRECEITA WHERE ID = @id;";
+                string sql = @"SELECT ID, NOME, IND_FIXA FROM TP_RECEITA WHERE ID = @id;";
                 MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao);
                 cmd.Parameters.AddWithValue("@id", idTpReceita);
                 using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -622,12 +622,171 @@ namespace ControleGastos
             {
                 try
                 {
-                    string sql = @"UPDATE TPRECEITA SET NOME = @nome, IND_FIXA = @fixa 
+                    string sql = @"UPDATE TP_RECEITA SET NOME = @nome, IND_FIXA = @fixa 
                                    WHERE ID = @id;";
                     MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao, transacao);
                     cmd.Parameters.AddWithValue("@id", tpReceita.IdTpReceita);
                     cmd.Parameters.AddWithValue("@nome", tpReceita.Nome);
                     cmd.Parameters.AddWithValue("@fixa", tpReceita.TpReceitaFixa);
+                    cmd.ExecuteNonQuery();
+                    transacao.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transacao.Rollback();
+                    MessageBox.Show("Erro ao salvar cadastro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+        }
+
+        public void CadCategoriaDespesaExcluirCadastro(int IdCategoriaDespesa)
+        {
+            if (!StatusConexao.EstaConectado)
+            {
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            using (MySqlTransaction transacao = StatusConexao.Conexao.BeginTransaction())
+            {
+                try
+                {
+                    string sql = "DELETE FROM CATEGORIA_DESPESA WHERE ID = @id;";
+                    MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao, transacao);
+                    cmd.Parameters.AddWithValue("@id", IdCategoriaDespesa);
+                    cmd.ExecuteNonQuery();
+                    transacao.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transacao.Rollback();
+                    MessageBox.Show("Erro ao excluir tipo de receita: " + ex.Message, "Erro",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        public void CadCategoriaDespesaInserirCadastro(Cadastro.CategoriaDespesa categoriaDespesa)
+        {
+            if (!StatusConexao.EstaConectado)
+            {
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            using (MySqlTransaction transacao = StatusConexao.Conexao.BeginTransaction())
+            {
+                try
+                {
+                    string sql = @"INSERT INTO CATEGORIA_DESPESA (NOME) 
+                                   VALUES (@nome);
+                                   SELECT LAST_INSERT_ID()";
+                    MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao, transacao);
+                    cmd.Parameters.AddWithValue("@nome", categoriaDespesa.Nome);
+
+                    int idCategoriaDespesa = Convert.ToInt32(cmd.ExecuteScalar());
+                    categoriaDespesa.IdCategoriaDespesa = idCategoriaDespesa;
+
+                    cmd.ExecuteNonQuery();
+                    transacao.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transacao.Rollback();
+                    MessageBox.Show("Erro ao inserir tipo de receita: " + ex.Message, "Erro",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        public Cadastro.CategoriaDespesa CadCategoriaDespesaPesquisarPorNome(string nome)
+        {
+            if (!StatusConexao.EstaConectado)
+            {
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+            try
+            {
+                string sql = @"SELECT ID, NOME FROM CATEGORIA_RECEITA WHERE NOME LIKE @nome;";
+                MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao);
+                cmd.Parameters.AddWithValue("@nome", nome);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var categoriaDespesa = new Cadastro.CategoriaDespesa
+                        {
+                            IdCategoriaDespesa = reader.GetInt32("ID"),
+                            Nome = reader.GetString("NOME"),
+                        };
+
+                        return categoriaDespesa;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao buscar tipo de receita: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return null;
+        }
+
+        public Cadastro.CategoriaDespesa CadCategoriaDespesaPesquisarPorId(int idCategoriaDespesa)
+        {
+            if (!StatusConexao.EstaConectado)
+            {
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+            try
+            {
+                string sql = @"SELECT ID, NOME FROM CATEGORIA_DESPESA WHERE ID = @id;";
+                MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao);
+                cmd.Parameters.AddWithValue("@id", idCategoriaDespesa);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var categoriaDespesa = new Cadastro.CategoriaDespesa
+                        {
+                            IdCategoriaDespesa = reader.GetInt32("ID"),
+                            Nome = reader.GetString("NOME")
+                        };
+                        return categoriaDespesa;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao buscar tipo de receita: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
+        }
+
+        public void CadCategoriaDespesaSalvarCadastro(Cadastro.CategoriaDespesa categoriaDespesa)
+        {
+            if (!StatusConexao.EstaConectado)
+            {
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            using (MySqlTransaction transacao = StatusConexao.Conexao.BeginTransaction())
+            {
+                try
+                {
+                    string sql = @"UPDATE CATEGORIA_DESPESA SET NOME = @nome
+                                   WHERE ID = @id;";
+                    MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao, transacao);
+                    cmd.Parameters.AddWithValue("@id", categoriaDespesa.IdCategoriaDespesa);
+                    cmd.Parameters.AddWithValue("@nome", categoriaDespesa.Nome);
                     cmd.ExecuteNonQuery();
                     transacao.Commit();
                 }
