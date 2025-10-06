@@ -161,7 +161,7 @@ namespace ControleGastos
         private void preencherCampos(Cadastro.CadastroReceita cadastroReceita)
         {
             txCadReceitaNome.Text = cadastroReceita.Nome;
-            cbCadReceitaTpReceita.ValueMember = cadastroReceita.IdTpReceita;
+            cbCadReceitaTpReceita.ValueMember = cadastroReceita.IdTpReceita.ToString();
             Helper.CheckBoxHelper.TorF(ckbCadReceitaRecorrente, cadastroReceita.ReceitaRecorrente);
         }
 
