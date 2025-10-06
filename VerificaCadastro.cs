@@ -90,5 +90,18 @@ namespace ControleGastos
             return count > 0;
         }
 
+        public static bool VerificaCadReceita(string nome)
+        {
+            if (!StatusConexao.VerificarConexaoAtiva())
+                throw new InvalidOperationException("Sem conexão com banco de dados.");
+
+            string sql = "SELECT COUNT(*) FROM RECEITA WHERE nome = @nome";
+            MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao);
+            cmd.Parameters.AddWithValue("@nome", nome);
+
+            int count = Convert.ToInt32(cmd.ExecuteScalar());
+            return count > 0;
+        }
+
     }
 }

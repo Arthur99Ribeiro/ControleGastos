@@ -42,7 +42,16 @@
             toolStripSeparator6 = new ToolStripSeparator();
             tslIdDepesa = new ToolStripLabel();
             tstIdDepesa = new ToolStripTextBox();
+            gbCadDespesa = new GroupBox();
+            ckbCadDespesaRecorrente = new CheckBox();
+            cbCadDespesaTpDespesa = new ComboBox();
+            lbCadDesepesaTpDespesa = new Label();
+            cbCadDespesaCategoria = new ComboBox();
+            lbCadDespesaCategoria = new Label();
+            txCadDespesaNome = new TextBox();
+            lbCadDespesaNome = new Label();
             tsCadDespesa.SuspendLayout();
+            gbCadDespesa.SuspendLayout();
             SuspendLayout();
             // 
             // tsCadDespesa
@@ -52,7 +61,7 @@
             tsCadDespesa.Items.AddRange(new ToolStripItem[] { toolStripSeparator1, tslCadDespesaExcluir, toolStripSeparator2, tslCadDespesaIncluir, toolStripSeparator3, tslCadDespesaSalvar, toolStripSeparator4, tslCadDespesaPesquisar, toolStripSeparator5, tslCadDespesaLimpar, toolStripSeparator6, tslIdDepesa, tstIdDepesa });
             tsCadDespesa.Location = new Point(0, 0);
             tsCadDespesa.Name = "tsCadDespesa";
-            tsCadDespesa.Size = new Size(800, 30);
+            tsCadDespesa.Size = new Size(375, 30);
             tsCadDespesa.TabIndex = 1;
             tsCadDespesa.Text = "toolStrip2";
             // 
@@ -146,12 +155,95 @@
             tstIdDepesa.Name = "tstIdDepesa";
             tstIdDepesa.Size = new Size(100, 30);
             // 
+            // gbCadDespesa
+            // 
+            gbCadDespesa.Controls.Add(ckbCadDespesaRecorrente);
+            gbCadDespesa.Controls.Add(cbCadDespesaTpDespesa);
+            gbCadDespesa.Controls.Add(lbCadDesepesaTpDespesa);
+            gbCadDespesa.Controls.Add(cbCadDespesaCategoria);
+            gbCadDespesa.Controls.Add(lbCadDespesaCategoria);
+            gbCadDespesa.Controls.Add(txCadDespesaNome);
+            gbCadDespesa.Controls.Add(lbCadDespesaNome);
+            gbCadDespesa.Location = new Point(12, 33);
+            gbCadDespesa.Name = "gbCadDespesa";
+            gbCadDespesa.Size = new Size(347, 195);
+            gbCadDespesa.TabIndex = 2;
+            gbCadDespesa.TabStop = false;
+            gbCadDespesa.Text = "Cadstro de Despesa";
+            // 
+            // ckbCadDespesaRecorrente
+            // 
+            ckbCadDespesaRecorrente.AutoSize = true;
+            ckbCadDespesaRecorrente.Location = new Point(6, 154);
+            ckbCadDespesaRecorrente.Name = "ckbCadDespesaRecorrente";
+            ckbCadDespesaRecorrente.Size = new Size(129, 19);
+            ckbCadDespesaRecorrente.TabIndex = 6;
+            ckbCadDespesaRecorrente.Text = "Despesa Recorrente";
+            ckbCadDespesaRecorrente.UseVisualStyleBackColor = true;
+            // 
+            // cbCadDespesaTpDespesa
+            // 
+            cbCadDespesaTpDespesa.FormattingEnabled = true;
+            cbCadDespesaTpDespesa.Location = new Point(6, 125);
+            cbCadDespesaTpDespesa.Name = "cbCadDespesaTpDespesa";
+            cbCadDespesaTpDespesa.Size = new Size(335, 23);
+            cbCadDespesaTpDespesa.TabIndex = 5;
+            cbCadDespesaTpDespesa.Enter += cbCadDespesaTpDespesa_Enter;
+            cbCadDespesaTpDespesa.Leave += cbCadDespesaTpDespesa_Leave;
+            // 
+            // lbCadDesepesaTpDespesa
+            // 
+            lbCadDesepesaTpDespesa.AutoSize = true;
+            lbCadDesepesaTpDespesa.Location = new Point(6, 107);
+            lbCadDesepesaTpDespesa.Name = "lbCadDesepesaTpDespesa";
+            lbCadDesepesaTpDespesa.Size = new Size(82, 15);
+            lbCadDesepesaTpDespesa.TabIndex = 4;
+            lbCadDesepesaTpDespesa.Text = "Tipo Desepesa";
+            // 
+            // cbCadDespesaCategoria
+            // 
+            cbCadDespesaCategoria.FormattingEnabled = true;
+            cbCadDespesaCategoria.Location = new Point(6, 81);
+            cbCadDespesaCategoria.Name = "cbCadDespesaCategoria";
+            cbCadDespesaCategoria.Size = new Size(335, 23);
+            cbCadDespesaCategoria.TabIndex = 3;
+            cbCadDespesaCategoria.Enter += cbCadDespesaCategoria_Enter;
+            cbCadDespesaCategoria.Leave += cbCadDespesaCategoria_Leave;
+            // 
+            // lbCadDespesaCategoria
+            // 
+            lbCadDespesaCategoria.AutoSize = true;
+            lbCadDespesaCategoria.Location = new Point(6, 63);
+            lbCadDespesaCategoria.Name = "lbCadDespesaCategoria";
+            lbCadDespesaCategoria.Size = new Size(104, 15);
+            lbCadDespesaCategoria.TabIndex = 2;
+            lbCadDespesaCategoria.Text = "Categoria Despesa";
+            // 
+            // txCadDespesaNome
+            // 
+            txCadDespesaNome.Location = new Point(6, 37);
+            txCadDespesaNome.Name = "txCadDespesaNome";
+            txCadDespesaNome.Size = new Size(335, 23);
+            txCadDespesaNome.TabIndex = 1;
+            txCadDespesaNome.Enter += txCadDespesaNome_Enter;
+            txCadDespesaNome.Leave += txCadDespesaNome_Leave;
+            // 
+            // lbCadDespesaNome
+            // 
+            lbCadDespesaNome.AutoSize = true;
+            lbCadDespesaNome.Location = new Point(3, 19);
+            lbCadDespesaNome.Name = "lbCadDespesaNome";
+            lbCadDespesaNome.Size = new Size(40, 15);
+            lbCadDespesaNome.TabIndex = 0;
+            lbCadDespesaNome.Text = "Nome";
+            // 
             // uFrmCadDespesasDespesa
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(375, 240);
+            Controls.Add(gbCadDespesa);
             Controls.Add(tsCadDespesa);
             Name = "uFrmCadDespesasDespesa";
             StartPosition = FormStartPosition.CenterScreen;
@@ -159,6 +251,8 @@
             Load += uFrmCadDespesasDespesa_Load;
             tsCadDespesa.ResumeLayout(false);
             tsCadDespesa.PerformLayout();
+            gbCadDespesa.ResumeLayout(false);
+            gbCadDespesa.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -178,5 +272,13 @@
         private ToolStripSeparator toolStripSeparator6;
         private ToolStripLabel tslIdDepesa;
         private ToolStripTextBox tstIdDepesa;
+        private GroupBox gbCadDespesa;
+        private TextBox txCadDespesaNome;
+        private Label lbCadDespesaNome;
+        private CheckBox ckbCadDespesaRecorrente;
+        private ComboBox cbCadDespesaTpDespesa;
+        private Label lbCadDesepesaTpDespesa;
+        private ComboBox cbCadDespesaCategoria;
+        private Label lbCadDespesaCategoria;
     }
 }

@@ -96,5 +96,25 @@ namespace ControleGastos
                 Nome = nome;
             }
         }
+
+        public class CadastroReceita
+        {
+            public int IdCadReceita { get; set; }
+            public string Nome { get; set; }
+            public int IdTpReceita { get; set; }
+            public string ReceitaRecorrente { get; set; }
+
+            public CadastroReceita() { }
+
+            public CadastroReceita(int idCadReceita, string nome, int idTpReceita, string receitaRecorrente)
+            {
+                IdCadReceita = idCadReceita;
+                Nome = nome;
+                IdTpReceita = idTpReceita;
+                ReceitaRecorrente = receitaRecorrente;
+            }
+
+
+        }
     }
 }

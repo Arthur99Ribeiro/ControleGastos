@@ -21,7 +21,7 @@ namespace ControleGastos
 
         private void uFrmCadDespesaCategoriaDespesa_Load(object sender, EventArgs e)
         {
-
+            tstCadCategoriaDespesaIdCategoriaDespesa.Text = idCategoriaDespesaAtual.ToString();
         }
 
         private void tslCadCategoriaDespesaExcluir_MouseEnter(object sender, EventArgs e)
@@ -107,24 +107,15 @@ namespace ControleGastos
 
         private void tslCadCategoriaDespesaLimpar_Click(object sender, EventArgs e)
         {
-            if (idCategoriaDespesaAtual == 0)
+            DialogResult resultado = MessageBox.Show("Deseja limpar os campos?", "Limpar Campos",
+                                                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.Yes)
             {
-                MessageBox.Show("Nenhum tipo de despesa selecionado para limpar.", "Aviso",
+                limparCampos();
+
+                MessageBox.Show("Campos limpos com sucesso.", "Sucesso",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            else
-            {
-                DialogResult resultado = MessageBox.Show("Deseja limpar os campos?", "Limpar Campos",
-                                                            MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (resultado == DialogResult.Yes)
-                {
-                    limparCampos();
-
-                    MessageBox.Show("Campos limpos com sucesso.", "Sucesso",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
             }
         }
 

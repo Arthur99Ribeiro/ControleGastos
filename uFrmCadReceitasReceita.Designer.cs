@@ -43,11 +43,11 @@
             tslIdReceita = new ToolStripLabel();
             tstIdReceita = new ToolStripTextBox();
             gbCadReceita = new GroupBox();
-            lbCadReceitaNome = new Label();
-            txCadReceitaNome = new TextBox();
-            lbCadReceitaTpReceita = new Label();
-            cbCadReceitaTpReceita = new ComboBox();
             ckbCadReceitaRecorrente = new CheckBox();
+            cbCadReceitaTpReceita = new ComboBox();
+            lbCadReceitaTpReceita = new Label();
+            txCadReceitaNome = new TextBox();
+            lbCadReceitaNome = new Label();
             tsCadReceita.SuspendLayout();
             gbCadReceita.SuspendLayout();
             SuspendLayout();
@@ -133,6 +133,7 @@
             tslCadReceitaLimpar.Name = "tslCadReceitaLimpar";
             tslCadReceitaLimpar.Size = new Size(29, 27);
             tslCadReceitaLimpar.Text = "";
+            tslCadReceitaLimpar.Click += tslCadReceitaLimpar_Click;
             tslCadReceitaLimpar.MouseEnter += tslCadReceitaLimpar_MouseEnter;
             tslCadReceitaLimpar.MouseLeave += tslCadReceitaLimpar_MouseLeave;
             // 
@@ -160,47 +161,12 @@
             gbCadReceita.Controls.Add(lbCadReceitaTpReceita);
             gbCadReceita.Controls.Add(txCadReceitaNome);
             gbCadReceita.Controls.Add(lbCadReceitaNome);
-            gbCadReceita.Location = new Point(12, 43);
+            gbCadReceita.Location = new Point(12, 33);
             gbCadReceita.Name = "gbCadReceita";
-            gbCadReceita.Size = new Size(351, 145);
+            gbCadReceita.Size = new Size(351, 135);
             gbCadReceita.TabIndex = 1;
             gbCadReceita.TabStop = false;
             gbCadReceita.Text = "Cadastro de Receita";
-            // 
-            // lbCadReceitaNome
-            // 
-            lbCadReceitaNome.AutoSize = true;
-            lbCadReceitaNome.Location = new Point(3, 19);
-            lbCadReceitaNome.Name = "lbCadReceitaNome";
-            lbCadReceitaNome.Size = new Size(40, 15);
-            lbCadReceitaNome.TabIndex = 0;
-            lbCadReceitaNome.Text = "Nome";
-            // 
-            // txCadReceitaNome
-            // 
-            txCadReceitaNome.Cursor = Cursors.IBeam;
-            txCadReceitaNome.Location = new Point(6, 37);
-            txCadReceitaNome.Name = "txCadReceitaNome";
-            txCadReceitaNome.Size = new Size(336, 23);
-            txCadReceitaNome.TabIndex = 1;
-            // 
-            // lbCadReceitaTpReceita
-            // 
-            lbCadReceitaTpReceita.AutoSize = true;
-            lbCadReceitaTpReceita.Location = new Point(6, 63);
-            lbCadReceitaTpReceita.Name = "lbCadReceitaTpReceita";
-            lbCadReceitaTpReceita.Size = new Size(87, 15);
-            lbCadReceitaTpReceita.TabIndex = 2;
-            lbCadReceitaTpReceita.Text = "Tipo de Receita";
-            // 
-            // cbCadReceitaTpReceita
-            // 
-            cbCadReceitaTpReceita.Cursor = Cursors.Hand;
-            cbCadReceitaTpReceita.FormattingEnabled = true;
-            cbCadReceitaTpReceita.Location = new Point(6, 81);
-            cbCadReceitaTpReceita.Name = "cbCadReceitaTpReceita";
-            cbCadReceitaTpReceita.Size = new Size(336, 23);
-            cbCadReceitaTpReceita.TabIndex = 3;
             // 
             // ckbCadReceitaRecorrente
             // 
@@ -212,12 +178,51 @@
             ckbCadReceitaRecorrente.Text = "Receita Recorrente";
             ckbCadReceitaRecorrente.UseVisualStyleBackColor = true;
             // 
+            // cbCadReceitaTpReceita
+            // 
+            cbCadReceitaTpReceita.BackColor = Color.White;
+            cbCadReceitaTpReceita.FormattingEnabled = true;
+            cbCadReceitaTpReceita.Location = new Point(6, 81);
+            cbCadReceitaTpReceita.Name = "cbCadReceitaTpReceita";
+            cbCadReceitaTpReceita.Size = new Size(336, 23);
+            cbCadReceitaTpReceita.TabIndex = 3;
+            cbCadReceitaTpReceita.Enter += cbCadReceitaTpReceita_Enter;
+            cbCadReceitaTpReceita.Leave += cbCadReceitaTpReceita_Leave;
+            // 
+            // lbCadReceitaTpReceita
+            // 
+            lbCadReceitaTpReceita.AutoSize = true;
+            lbCadReceitaTpReceita.Location = new Point(6, 63);
+            lbCadReceitaTpReceita.Name = "lbCadReceitaTpReceita";
+            lbCadReceitaTpReceita.Size = new Size(87, 15);
+            lbCadReceitaTpReceita.TabIndex = 2;
+            lbCadReceitaTpReceita.Text = "Tipo de Receita";
+            // 
+            // txCadReceitaNome
+            // 
+            txCadReceitaNome.Cursor = Cursors.IBeam;
+            txCadReceitaNome.Location = new Point(6, 37);
+            txCadReceitaNome.Name = "txCadReceitaNome";
+            txCadReceitaNome.Size = new Size(336, 23);
+            txCadReceitaNome.TabIndex = 1;
+            txCadReceitaNome.Enter += txCadReceitaNome_Enter;
+            txCadReceitaNome.Leave += txCadReceitaNome_Leave;
+            // 
+            // lbCadReceitaNome
+            // 
+            lbCadReceitaNome.AutoSize = true;
+            lbCadReceitaNome.Location = new Point(3, 19);
+            lbCadReceitaNome.Name = "lbCadReceitaNome";
+            lbCadReceitaNome.Size = new Size(40, 15);
+            lbCadReceitaNome.TabIndex = 0;
+            lbCadReceitaNome.Text = "Nome";
+            // 
             // uFrmCadReceitasReceita
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(375, 200);
+            ClientSize = new Size(375, 180);
             Controls.Add(gbCadReceita);
             Controls.Add(tsCadReceita);
             Name = "uFrmCadReceitasReceita";

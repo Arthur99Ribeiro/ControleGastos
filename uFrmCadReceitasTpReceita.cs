@@ -107,26 +107,16 @@ namespace ControleGastos
 
         private void tslTpReceitaLimpar_Click(object sender, EventArgs e)
         {
-            if (idTpReceitaAtual == 0)
-            {
-                MessageBox.Show("Nenhum tipo de despesa selecionado para limpar.", "Aviso",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            else
-            {
-                DialogResult resultado = MessageBox.Show("Deseja limpar os campos?", "Limpar Campos",
+            DialogResult resultado = MessageBox.Show("Deseja limpar os campos?", "Limpar Campos",
                                                             MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (resultado == DialogResult.Yes)
+            {
+                limparCampos();
+                idTpReceitaAtual = 0;
+                tstTpReceitaIdTpReceita.Text = idTpReceitaAtual.ToString();
 
-                if (resultado == DialogResult.Yes)
-                {
-                    limparCampos();
-                    idTpReceitaAtual = 0;
-                    tstTpReceitaIdTpReceita.Text = idTpReceitaAtual.ToString();
-
-                    MessageBox.Show("Campos limpos com sucesso.", "Sucesso",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                MessageBox.Show("Campos limpos com sucesso.", "Sucesso",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

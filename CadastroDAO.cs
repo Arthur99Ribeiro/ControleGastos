@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using static ControleGastos.Cadastro;
 
 namespace ControleGastos
 {
@@ -712,7 +713,7 @@ namespace ControleGastos
             }
             try
             {
-                string sql = @"SELECT ID, NOME FROM CATEGORIA_RECEITA WHERE NOME LIKE @nome;";
+                string sql = @"SELECT ID, NOME FROM CATEGORIA_DESPESA WHERE NOME LIKE @nome;";
                 MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao);
                 cmd.Parameters.AddWithValue("@nome", nome);
                 using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -787,6 +788,173 @@ namespace ControleGastos
                     MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao, transacao);
                     cmd.Parameters.AddWithValue("@id", categoriaDespesa.IdCategoriaDespesa);
                     cmd.Parameters.AddWithValue("@nome", categoriaDespesa.Nome);
+                    cmd.ExecuteNonQuery();
+                    transacao.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transacao.Rollback();
+                    MessageBox.Show("Erro ao salvar cadastro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+        }
+
+        public void CadReceitaExcluirCadastro(int IdCadReceita)
+        {
+            if (!StatusConexao.EstaConectado)
+            {
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            using (MySqlTransaction transacao = StatusConexao.Conexao.BeginTransaction())
+            {
+                try
+                {
+                    string sql = "DELETE FROM RECEITA WHERE ID = @id;";
+                    MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao, transacao);
+                    cmd.Parameters.AddWithValue("@id", IdCadReceita);
+                    cmd.ExecuteNonQuery();
+                    transacao.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transacao.Rollback();
+                    MessageBox.Show("Erro ao excluir receita: " + ex.Message, "Erro",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        public void CadReceitaInserirCadastro(Cadastro.CadastroReceita cadastroReceita)
+        {
+            if (!StatusConexao.EstaConectado)
+            {
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            using (MySqlTransaction transacao = StatusConexao.Conexao.BeginTransaction())
+            {
+                try
+                {
+                    string sql = @"INSERT INTO RECEITA (NOME, ID_TP_RECEITA, IND_RECORRENTE) 
+                                   VALUES (@nome, @id_tp_receita, @ind_recorrente);
+                                   SELECT LAST_INSERT_ID()";
+                    MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao, transacao);
+                    cmd.Parameters.AddWithValue("@nome", cadastroReceita.Nome);
+                    cmd.Parameters.AddWithValue("@id_tp_receita", cadastroReceita.IdTpReceita);
+                    cmd.Parameters.AddWithValue("@ind_recorrente", cadastroReceita.ReceitaRecorrente);
+
+                    int idCadReceita = Convert.ToInt32(cmd.ExecuteScalar());
+                    cadastroReceita.IdCadReceita = idCadReceita;
+
+                    cmd.ExecuteNonQuery();
+                    transacao.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transacao.Rollback();
+                    MessageBox.Show("Erro ao inserir receita: " + ex.Message, "Erro",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        public Cadastro.CadastroReceita CadReceitaPesquisarPorNome(string nome)
+        {
+            if (!StatusConexao.EstaConectado)
+            {
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+            try
+            {
+                string sql = @"SELECT ID, NOME, ID_TP_RECEITA, IND_RECORRENTE FROM RECEITA WHERE NOME LIKE @nome;";
+                MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao);
+                cmd.Parameters.AddWithValue("@nome", nome);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var cadReceita = new Cadastro.CadastroReceita
+                        {
+                            IdCadReceita = reader.GetInt32("ID"),
+                            Nome = reader.GetString("NOME"),
+                            IdTpReceita = reader.GetInt32("ID_TP_RECEITA"),
+                            ReceitaRecorrente = reader.GetString("IND_RECORRENTE")
+                        };
+
+                        return cadReceita;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao buscar receita: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return null;
+        }
+
+        public Cadastro.CadastroReceita CadReceitaPesquisarPorId(int idCadReceita)
+        {
+            if (!StatusConexao.EstaConectado)
+            {
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+            try
+            {
+                string sql = @"SELECT ID, NOME, ID_TP_RECEITA, IND_RECORRENTE FROM RECEITA WHERE ID = @id;";
+                MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao);
+                cmd.Parameters.AddWithValue("@id", idCadReceita);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var cadReceita = new Cadastro.CadastroReceita
+                        {
+                            IdCadReceita = reader.GetInt32("ID"),
+                            Nome = reader.GetString("NOME"),
+                            IdTpReceita = reader.GetInt32("ID_TP_RECEITA"),
+                            ReceitaRecorrente = reader.GetString("IND_RECORRENTE")
+                        };
+                        return cadReceita;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao buscar receita: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
+        }
+
+        public void CadReceitaSalvarCadastro(Cadastro.CadastroReceita cadastroReceita)
+        {
+            if (!StatusConexao.EstaConectado)
+            {
+                MessageBox.Show("Não há conexão ativa com o banco de dados.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            using (MySqlTransaction transacao = StatusConexao.Conexao.BeginTransaction())
+            {
+                try
+                {
+                    string sql = @"UPDATE RECEITA SET NOME = @nome, ID_TP_RECEITA = @id_tp_receita, IND_RECORRENTE = @ind_recorrente
+                                   WHERE ID = @id;";
+                    MySqlCommand cmd = new MySqlCommand(sql, StatusConexao.Conexao, transacao);
+                    cmd.Parameters.AddWithValue("@id", cadastroReceita.IdCadReceita);
+                    cmd.Parameters.AddWithValue("@nome", cadastroReceita.Nome);
+                    cmd.Parameters.AddWithValue("@id_tp_receita", cadastroReceita.IdTpReceita);
+                    cmd.Parameters.AddWithValue("@ind_recorrente", cadastroReceita.ReceitaRecorrente);
                     cmd.ExecuteNonQuery();
                     transacao.Commit();
                 }

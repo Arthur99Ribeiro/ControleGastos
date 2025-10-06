@@ -72,5 +72,35 @@ namespace ControleGastos
         {
             tslCadDespesaLimpar.Font = new Font("Segoe MDL2 Assets", 12F, FontStyle.Regular);
         }
+
+        private void txCadDespesaNome_Enter(object sender, EventArgs e)
+        {
+            txCadDespesaNome.BackColor = Color.AliceBlue;
+        }
+
+        private void txCadDespesaNome_Leave(object sender, EventArgs e)
+        {
+            txCadDespesaNome.BackColor = Color.White;
+        }
+
+        private void cbCadDespesaCategoria_Enter(object sender, EventArgs e)
+        {
+            cbCadDespesaCategoria.BackColor = Color.AliceBlue;
+        }
+
+        private void cbCadDespesaCategoria_Leave(object sender, EventArgs e)
+        {
+            cbCadDespesaCategoria.BackColor = Color.White;
+        }
+
+        private void cbCadDespesaTpDespesa_Enter(object sender, EventArgs e)
+        {
+            cbCadDespesaTpDespesa.BackColor = Color.AliceBlue;
+        }
+
+        private void cbCadDespesaTpDespesa_Leave(object sender, EventArgs e)
+        {
+            cbCadDespesaTpDespesa.BackColor = Color.White;
+        }
     }
 }
