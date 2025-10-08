@@ -29,7 +29,7 @@ namespace ControleGastos
 
             if (!string.IsNullOrEmpty(NomeConexaoSelecionada))
             {
-                string iniPath = @"C:\Dev\Projetos\Controle_Gasto\ConfigDB.ini";
+                string iniPath = @"C:\Dev\C#\Controle_Gastos\ConfigDB.ini";
                 if (!File.Exists(iniPath)) return;
 
                 IniFile ini = new IniFile(iniPath);
@@ -119,7 +119,7 @@ namespace ControleGastos
 
         private void lbSalvar_Click(object sender, EventArgs e)
         {
-            string iniPath = @"C:\Dev\Projetos\Controle_Gasto\ConfigDB.ini";
+            string iniPath = @"C:\Dev\C#\Controle_Gastos\ConfigDB.ini";
             string pasta = Path.GetDirectoryName(iniPath);
             if (!Directory.Exists(pasta))
                 Directory.CreateDirectory(pasta);
@@ -156,7 +156,7 @@ namespace ControleGastos
 
         private void lbExcluir_Click(object sender, EventArgs e)
         {
-            string iniPath = @"C:\Dev\Projetos\Controle_Gasto\ConfigDB.ini";
+            string iniPath = @"C:\Dev\C#\Controle_Gastos\ConfigDB.ini";
             string nomeConexao = txNomeConexao.Text.Trim();
 
             if (string.IsNullOrEmpty(nomeConexao))

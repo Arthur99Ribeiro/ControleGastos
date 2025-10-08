@@ -26,7 +26,7 @@ namespace ControleGastos
             this.BeginInvoke(new Action(() => cbStrgDB.Focus()));
 
 
-            string iniPath = @"C:\Dev\Projetos\Controle_Gasto\ConfigDB.ini";
+            string iniPath = @"C:\Dev\C#\Controle_Gastos\ConfigDB.ini";
 
             string pasta = Path.GetDirectoryName(iniPath);
             if (!Directory.Exists(pasta))
@@ -62,7 +62,7 @@ namespace ControleGastos
 
         private void CarregarConexoes()
         {
-            string iniPath = @"C:\Dev\Projetos\Controle_Gasto\ConfigDB.ini";
+            string iniPath = @"C:\Dev\C#\Controle_Gastos\ConfigDB.ini";
             if (!File.Exists(iniPath)) return;
 
             IniFile ini = new IniFile(iniPath);
@@ -120,7 +120,7 @@ namespace ControleGastos
                 if (cbStrgDB.SelectedIndex == -1) return;
 
                 string nomeConexao = cbStrgDB.SelectedItem.ToString();
-                string iniPath = @"C:\Dev\Projetos\Controle_Gasto\ConfigDB.ini";
+                string iniPath = @"C:\Dev\C#\Controle_Gastos\ConfigDB.ini";
                 IniFile ini = new IniFile(iniPath);
 
                 string servidor = ini.Read(nomeConexao, "Servidor");
