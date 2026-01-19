@@ -328,7 +328,7 @@ namespace ControleGastos
                 CadastroDAO dao = new CadastroDAO();
                 dao.CadReceitaExcluirCadastro(idCadReceitaAtual);
                 limparCampos();
-                MessageBox.Show("Cadastro excluído com sucesso.", "Sucesso",
+                MessageBox.Show("Receita excluída com sucesso.", "Sucesso",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
