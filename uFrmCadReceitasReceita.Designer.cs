@@ -75,6 +75,7 @@
             tslCadReceitaExcluir.Name = "tslCadReceitaExcluir";
             tslCadReceitaExcluir.Size = new Size(29, 27);
             tslCadReceitaExcluir.Text = "";
+            tslCadReceitaExcluir.Click += tslCadReceitaExcluir_Click;
             tslCadReceitaExcluir.MouseEnter += tslCadReceitaExcluir_MouseEnter;
             tslCadReceitaExcluir.MouseLeave += tslCadReceitaExcluir_MouseLeave;
             // 
@@ -90,6 +91,7 @@
             tslCadReceitaIncluir.Name = "tslCadReceitaIncluir";
             tslCadReceitaIncluir.Size = new Size(29, 27);
             tslCadReceitaIncluir.Text = "";
+            tslCadReceitaIncluir.Click += tslCadReceitaIncluir_Click;
             tslCadReceitaIncluir.MouseEnter += tslCadReceitaIncluir_MouseEnter;
             tslCadReceitaIncluir.MouseLeave += tslCadReceitaIncluir_MouseLeave;
             // 
@@ -105,6 +107,7 @@
             tslCadReceitaSalvar.Name = "tslCadReceitaSalvar";
             tslCadReceitaSalvar.Size = new Size(29, 27);
             tslCadReceitaSalvar.Text = "";
+            tslCadReceitaSalvar.Click += tslCadReceitaSalvar_Click;
             tslCadReceitaSalvar.MouseEnter += tslCadReceitaSalvar_MouseEnter;
             tslCadReceitaSalvar.MouseLeave += tslCadReceitaSalvar_MouseLeave;
             // 
@@ -119,6 +122,7 @@
             tslCadReceitaPesquisar.Name = "tslCadReceitaPesquisar";
             tslCadReceitaPesquisar.Size = new Size(29, 27);
             tslCadReceitaPesquisar.Text = "";
+            tslCadReceitaPesquisar.Click += tslCadReceitaPesquisar_Click;
             tslCadReceitaPesquisar.MouseEnter += tslCadReceitaPesquisar_MouseEnter;
             tslCadReceitaPesquisar.MouseLeave += tslCadReceitaPesquisar_MouseLeave;
             // 
@@ -194,7 +198,7 @@
             lbCadReceitaTpReceita.AutoSize = true;
             lbCadReceitaTpReceita.Location = new Point(6, 63);
             lbCadReceitaTpReceita.Name = "lbCadReceitaTpReceita";
-            lbCadReceitaTpReceita.Size = new Size(87, 15);
+            lbCadReceitaTpReceita.Size = new Size(88, 15);
             lbCadReceitaTpReceita.TabIndex = 2;
             lbCadReceitaTpReceita.Text = "Tipo de Receita";
             // 

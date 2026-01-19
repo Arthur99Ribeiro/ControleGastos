@@ -176,7 +176,109 @@ namespace ControleGastos
                 MessageBox.Show("Campos limpos com sucesso.", "Sucesso",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-        }  
+        }
+
+        private void tslCadReceitaPesquisar_Click(object sender, EventArgs e)
+        {
+            if (idCadReceitaAtual > 0)
+            {
+                MessageBox.Show("Já existe um cadastro carregado. Limpe os campos antes de pesquisar outro cadastro.", "Atenção",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(txCadReceitaNome.Text))
+            {
+                CadastroDAO dao = new CadastroDAO();
+                var cadastroReceita = dao.CadReceitaPesquisarPorNome(txCadReceitaNome.Text);
+                if (cadastroReceita != null)
+                {
+                    preencherCampos(cadastroReceita);
+                    idCadReceitaAtual = cadastroReceita.IdCadReceita;
+                    tstIdReceita.Text = idCadReceitaAtual.ToString();
+                    MessageBox.Show("Cadastro carregado com sucesso.", "Sucesso",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Cadastro não encontrado.", "Aviso",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("O campo Nome é obrigatório para pesquisa.", "Aviso",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txCadReceitaNome.Focus();
+                return;
+            }
+        }
+
+        private void tslCadReceitaSalvar_Click(object sender, EventArgs e)
+        {
+            if (idCadReceitaAtual == 0)
+            {
+                MessageBox.Show("Cadastro não existente! /n Faça a inclusão!!", "Atenção",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else
+            {
+                if (!string.IsNullOrWhiteSpace(txCadReceitaNome.Text) && (cbCadReceitaTpReceita.SelectedIndex > 0))
+                {
+                    DialogResult result = MessageBox.Show("Deseja salvar o novo cadastro?", "Salvar Cadastro",
+                                                                       MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        var cadastroReceita = obterCampos();
+
+                        CadastroDAO dao = new CadastroDAO();
+                        dao.CadReceitaSalvarCadastro(cadastroReceita);
+                        MessageBox.Show("Cadastro salvo com sucesso.", "Sucesso",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        dao.CadReceitaPesquisarPorId(idCadReceitaAtual);
+                        preencherCampos(cadastroReceita);
+                        tstIdReceita.Text = idCadReceitaAtual.ToString();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("O campo Nome e Tipo Receita é obrigatório.", "Aviso",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txCadReceitaNome.Focus();
+                    return;
+                }
+
+                DialogResult resultado = MessageBox.Show("Deseja salvar as alterações no cadastro?", "Salvar Cadastro",
+                                                                       MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            }
+        }
+
+        private void tslCadReceitaIncluir_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tslCadReceitaExcluir_Click(object sender, EventArgs e)
+        {
+            if(idCadReceitaAtual == 0)
+            {
+                MessageBox.Show("Nenhum cadastro carregado para exclusão.", "Atenção",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            DialogResult result = MessageBox.Show("Deseja realmente excluir o cadastro?", "Confirmar Exclusão",
+                                                   MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+            {
+                CadastroDAO dao = new CadastroDAO();
+                dao.CadReceitaExcluirCadastro(idCadReceitaAtual);
+                limparCampos();
+                MessageBox.Show("Cadastro excluído com sucesso.", "Sucesso",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
     }
 }
  
