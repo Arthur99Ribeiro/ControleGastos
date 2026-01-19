@@ -145,6 +145,7 @@ namespace ControleGastos
             txCadReceitaNome.Clear();
             cbCadReceitaTpReceita.SelectedIndex = 0;
             ckbCadReceitaRecorrente.Checked = false;
+            txCadReceitaNome.Focus();
         }
 
         private Cadastro.CadastroReceita obterCampos()
@@ -218,7 +219,7 @@ namespace ControleGastos
         {
             if (idCadReceitaAtual == 0)
             {
-                MessageBox.Show("Cadastro não existente! /n Faça a inclusão!!", "Atenção",
+                MessageBox.Show("Cadastro não existente! Faça a inclusão!!", "Atenção",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -256,7 +257,59 @@ namespace ControleGastos
 
         private void tslCadReceitaIncluir_Click(object sender, EventArgs e)
         {
+            if (idCadReceitaAtual > 0)
+            {
+                MessageBox.Show("Já existe uma receita selecionada. \n" +
+                                "Caso deseje realizar alguma alteração, use o botão de salvar. \n" +
+                                "Caso deseje realizar uma nova inclusão, use o botão de limpar antes de incluir um novo cadastro.",
+                                "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txCadReceitaNome.Focus();
+                return;
+            }   
+            if (string.IsNullOrWhiteSpace(txCadReceitaNome.Text))
+            {
+                MessageBox.Show("O campo Nome é obrigatório.", "Aviso",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txCadReceitaNome.Focus();
+                return;
+            }
+            if(cbCadReceitaTpReceita.SelectedIndex == 0)
+            {
+                MessageBox.Show("O campo Tipo Receita é obrigatório.", "Aviso",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cbCadReceitaTpReceita.Focus();
+                return;
+            }
 
+            DialogResult resultado = MessageBox.Show("Deseja incluir esse receita?", "Incluir Receita",
+                                                   MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (resultado == DialogResult.Yes)
+            {
+                var cadReceita = obterCampos();
+
+                CadastroDAO dao = new CadastroDAO();
+                dao.CadReceitaInserirCadastro(cadReceita);
+                idCadReceitaAtual = cadReceita.IdCadReceita;
+
+                DialogResult result = MessageBox.Show("Receita incluída com sucesso. \n" +
+                                                      "Deseja carregar o cadastro?", "Sucesso",
+                                                      MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    CadastroDAO atu = new CadastroDAO();
+                    dao.CadReceitaPesquisarPorId(idCadReceitaAtual);
+                    preencherCampos(cadReceita);
+                    tstIdReceita.Text = idCadReceitaAtual.ToString();
+
+                    MessageBox.Show("Receita carregada com sucesso.", "Sucesso",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    limparCampos();
+                }
+            }
         }
 
         private void tslCadReceitaExcluir_Click(object sender, EventArgs e)
